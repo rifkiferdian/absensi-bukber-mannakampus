@@ -3,9 +3,9 @@
       <nav class="float-left">
          <ul>
             <li>
-               <a href="https://www.instagram.com/ikhsan3adi/">
+               <!-- <a href="https://www.instagram.com/ikhsan3adi/">
                   Instagram
-               </a>
+               </a> -->
             </li>
          </ul>
       </nav>

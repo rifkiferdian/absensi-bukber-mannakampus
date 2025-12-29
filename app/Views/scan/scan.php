@@ -85,8 +85,11 @@
                 </div>
              </div>
              <div class="col-12 col-lg-6 col-xl-4">
+                <img src="<?php echo base_url('uploads/logo/logo_6951e9280661f8-73637506.png'); ?>" 
+     alt="Logo" 
+     class="responsive-logo">
                 <div class="card scan-card">
-                   <div class="col-10 mx-auto card-header card-header-primary">
+                   <!-- <div class="col-10 mx-auto card-header card-header-primary">
                       <div class="row">
                          <div class="col">
                             <h4 class="card-title"><b>Absen <?= $waktu; ?></b></h4>
@@ -98,7 +101,7 @@
                             </a>
                         </div>
                      </div>
-                   </div>
+                   </div> -->
                    <div class="card-body my-auto px-4 px-md-5">
                       <div class="camera-controls">
                          <h4 class="mb-0">Pilih kamera</h4>
@@ -122,7 +125,7 @@
                   </div>
                </div>
              </div>
-             <div class="col-12 col-lg-3 col-xl-4">
+             <!-- <div class="col-12 col-lg-3 col-xl-4">
                 <div class="card">
                    <div class="card-body">
                       <h3 class="mt-2"><b>Penggunaan</b></h3>
@@ -134,11 +137,64 @@
                       </ul>
                    </div>
                 </div>
-             </div>
+             </div> -->
           </div>
        </div>
     </div>
  </div>
+
+ <style>
+   /* CSS untuk logo responsif */
+   .responsive-logo {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      transition: all 0.3s ease; /* Animasi halus saat resize */
+   }
+
+   /* Desktop/Laptop besar (≥1200px) */
+   @media (min-width: 1200px) {
+      .responsive-logo {
+         max-width: 280px; /* Ukuran kecil untuk laptop besar */
+      }
+   }
+
+   /* Laptop standar (992px - 1199px) */
+   @media (min-width: 992px) and (max-width: 1199px) {
+      .responsive-logo {
+         max-width: 270px; /* Lebih kecil */
+      }
+   }
+
+   /* Tablet landscape (768px - 991px) */
+   @media (min-width: 768px) and (max-width: 991px) {
+      .responsive-logo {
+         max-width: 250px;
+      }
+   }
+
+   /* Tablet portrait (576px - 767px) */
+   @media (min-width: 576px) and (max-width: 767px) {
+      .responsive-logo {
+         max-width: 220px;
+      }
+   }
+
+   /* Handphone (≤575px) */
+   @media (max-width: 575px) {
+      .responsive-logo {
+         max-width: 200px;
+      }
+   }
+
+   /* Handphone sangat kecil (≤375px) */
+   @media (max-width: 375px) {
+      .responsive-logo {
+         max-width: 120px;
+      }
+   }
+ </style>
 
  <script type="text/javascript" src="<?= base_url('assets/js/plugins/zxing/zxing.min.js') ?>"></script>
  <script src="<?= base_url('assets/js/core/jquery-3.5.1.min.js') ?>"></script>

@@ -51,8 +51,8 @@
    </style>
 </head>
 
-<body>
-   <div class="bg bg-image"></div>
+<body style="background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);">
+   <!-- <div class="bg bg-image"></div> -->
    <!-- Navbar -->
    <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top">
       <div class="container-fluid">

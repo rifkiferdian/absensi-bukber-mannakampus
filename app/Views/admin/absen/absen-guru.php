@@ -15,8 +15,8 @@
             <div class="row justify-content-between">
                <div class="col">
                   <div class="pt-3 pl-3">
-                     <h4><b>Absen Guru</b></h4>
-                     <p>Daftar guru muncul disini</p>
+                     <h4><b>Absen Panitia</b></h4>
+                     <p>Daftar Panitia muncul disini</p>
                   </div>
                </div>
                <div class="col-sm-auto">

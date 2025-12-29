@@ -31,7 +31,7 @@
                         </div>
                         <div class="col-md-4">
                            <div class="nav-tabs-wrapper">
-                              <span class="nav-tabs-title">Kelas:</span>
+                              <span class="nav-tabs-title">Agenda:</span>
                               <ul class="nav nav-tabs" data-tabs="tabs">
                                  <li class="nav-item">
                                     <a class="nav-link active" onclick="kelas = null; trig()" href="#" data-toggle="tab">
@@ -60,7 +60,7 @@
                               <span class="nav-tabs-title">Jurusan:</span>
                               <ul class="nav nav-tabs" data-tabs="tabs">
                                  <li class="nav-item">
-                                    <a class="nav-link active" onclick="jurusan = null; trig()" href="#" data-toggle="tab">
+                                    <a class="nav-link active" onclick="Waktu = null; trig()" href="#" data-toggle="tab">
                                        <i class="material-icons">check</i> Semua
                                        <div class="ripple-container"></div>
                                     </a>

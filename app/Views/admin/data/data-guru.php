@@ -21,14 +21,14 @@
                         <div class="nav-tabs-navigation">
                            <div class="row">
                               <div class="col-md-4 col-lg-5">
-                                 <h4 class="card-title"><b>Daftar Guru</b></h4>
+                                 <h4 class="card-title"><b>Daftar Panitia</b></h4>
                                  <p class="card-category">Angkatan <?= $generalSettings->school_year; ?></p>
                               </div>
                               <div class="ml-md-auto col-auto row">
                                  <div class="col-12 col-sm-auto nav nav-tabs">
                                     <div class="nav-item">
                                        <a class="nav-link" id="tabBtn" onclick="removeHover()" href="<?= base_url('admin/guru/create'); ?>">
-                                          <i class="material-icons">add</i> Tambah data guru
+                                          <i class="material-icons">add</i> Tambah data Panitia
                                           <div class="ripple-container"></div>
                                        </a>
                                     </div>
