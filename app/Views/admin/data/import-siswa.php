@@ -93,7 +93,7 @@
                         <thead class="text-primary">
                             <th><b>ID</b></th>
                             <th><b>Kelas / Tingkat</b></th>
-                            <th><b>Jurusan</b></th>
+                            <th><b>Waktu</b></th>
                         </thead>
                         <tbody>
                             <?php

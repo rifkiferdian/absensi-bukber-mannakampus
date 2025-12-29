@@ -29,7 +29,7 @@ class DataAbsenGuru extends BaseController
    public function index()
    {
       $data = [
-         'title' => 'Data Absen Guru',
+         'title' => 'Data Absen Panitia',
          'ctx' => 'absen-guru',
       ];
 

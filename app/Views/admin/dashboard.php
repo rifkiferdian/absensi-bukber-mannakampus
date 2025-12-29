@@ -12,7 +12,7 @@
                                 <i class="material-icons">person</i>
                             </a>
                         </div>
-                        <p class="card-category">Jumlah siswa</p>
+                        <p class="card-category">Jumlah Tamu</p>
                         <h3 class="card-title"><?= count($siswa); ?></h3>
                     </div>
                     <div class="card-footer">
@@ -31,7 +31,7 @@
                                 <i class="material-icons">person_4</i>
                             </a>
                         </div>
-                        <p class="card-category">Jumlah guru</p>
+                        <p class="card-category">Jumlah Panitia</p>
                         <h3 class="card-title"><?= count($guru); ?></h3>
                     </div>
                     <div class="card-footer">
@@ -50,7 +50,7 @@
                                 <i class="material-icons">grade</i>
                             </a>
                         </div>
-                        <p class="card-category">Jumlah kelas</p>
+                        <p class="card-category">Jumlah Agenda</p>
                         <h3 class="card-title"><?= count($kelas); ?></h3>
                     </div>
                     <div class="card-footer">
@@ -85,7 +85,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title"><b>Absensi Siswa Hari Ini</b></h4>
+                        <h4 class="card-title"><b>Absensi Tamu Hari Ini</b></h4>
                         <p class="card-category"><?= $dateNow; ?></p>
                     </div>
                     <div class="card-body">
@@ -113,7 +113,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header card-header-success">
-                        <h4 class="card-title"><b>Absensi Guru Hari Ini</b></h4>
+                        <h4 class="card-title"><b>Absensi Panitia Hari Ini</b></h4>
                         <p class="card-category"><?= $dateNow; ?></p>
                     </div>
                     <div class="card-body">

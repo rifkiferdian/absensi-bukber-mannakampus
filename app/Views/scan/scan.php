@@ -8,28 +8,84 @@
  <?= $this->endSection() ?>
 
  <?= $this->section('content'); ?>
- <?php
+<?php
    $oppBtn = '';
 
    $waktu == 'Masuk' ? $oppBtn = 'pulang' : $oppBtn = 'masuk';
    ?>
+<style>
+   .scan-layout .card {
+      margin-bottom: 1rem;
+   }
+
+   .camera-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+   }
+
+   @media (min-width: 768px) {
+      .camera-controls {
+         flex-direction: row;
+         align-items: center;
+      }
+   }
+
+   #previewParent {
+      position: relative;
+      width: 100%;
+      padding-top: 75%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+   }
+
+   #previewParent.unpreview {
+      opacity: 0.6;
+   }
+
+   #previewKamera {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+   }
+
+   #hasilScan {
+      margin-top: 1rem;
+   }
+
+   @media (max-width: 767.98px) {
+      #previewParent {
+         padding-top: 140%;
+         min-height: 200px;
+         min-width: 200px;
+      }
+
+      .card-body.my-auto {
+         padding-left: 1rem;
+         padding-right: 1rem;
+      }
+   }
+</style>
  <div class="main-panel">
     <div class="content">
        <div class="container-fluid">
-          <div class="row mx-auto">
-             <div class="col-lg-3 col-xl-4">
+          <div class="row mx-auto scan-layout">
+             <div class="col-12 col-lg-3 col-xl-4">
                 <div class="card">
                    <div class="card-body">
                       <h3 class="mt-2"><b>Tips</b></h3>
                       <ul class="pl-3">
                          <li>Tunjukkan qr code sampai terlihat jelas di kamera</li>
                          <li>Posisikan qr code tidak terlalu jauh maupun terlalu dekat</li>
-                      </ul>
+                     </ul>
                    </div>
                 </div>
              </div>
-             <div class="col-lg-6 col-xl-4">
-                <div class="card">
+             <div class="col-12 col-lg-6 col-xl-4">
+                <div class="card scan-card">
                    <div class="col-10 mx-auto card-header card-header-primary">
                       <div class="row">
                          <div class="col">
@@ -40,21 +96,20 @@
                             <a href="<?= base_url("scan/$oppBtn"); ?>" class="btn btn-<?= $oppBtn == 'masuk' ? 'success' : 'warning'; ?>">
                                Absen <?= $oppBtn; ?>
                             </a>
-                         </div>
-                      </div>
+                        </div>
+                     </div>
                    </div>
-                   <div class="card-body my-auto px-5">
-                      <h4 class="d-inline">Pilih kamera</h4>
-
-                      <select id="pilihKamera" class="custom-select w-50 ml-2" aria-label="Default select example" style="height: 35px;">
-                         <option selected>Select camera devices</option>
-                      </select>
-
-                      <br>
+                   <div class="card-body my-auto px-4 px-md-5">
+                      <div class="camera-controls">
+                         <h4 class="mb-0">Pilih kamera</h4>
+                         <select id="pilihKamera" class="custom-select" aria-label="Default select example" style="height: 40px;">
+                            <option selected>Select camera devices</option>
+                         </select>
+                      </div><br>
 
                       <div class="row">
                          <div class="col-sm-12 mx-auto">
-                            <div class="previewParent">
+                            <div id="previewParent" class="previewParent">
                                <div class="text-center">
                                   <h4 class="d-none w-100" id="searching"><b>Mencari...</b></h4>
                                </div>
@@ -64,10 +119,10 @@
                       </div>
                       <div id="hasilScan"></div>
                       <br>
-                   </div>
-                </div>
+                  </div>
+               </div>
              </div>
-             <div class="col-lg-3 col-xl-4">
+             <div class="col-12 col-lg-3 col-xl-4">
                 <div class="card">
                    <div class="card-body">
                       <h3 class="mt-2"><b>Penggunaan</b></h3>

@@ -5,10 +5,10 @@
             <th width="20"><input type="checkbox" class="checkbox-table" id="checkAll"></th>
             <th><b>No</b></th>
             <th><b>NIS</b></th>
-            <th><b>Nama Siswa</b></th>
+            <th><b>Nama Tamu</b></th>
             <th><b>Jenis Kelamin</b></th>
-            <th><b>Kelas</b></th>
-            <th><b>Jurusan</b></th>
+            <th><b>Agenda</b></th>
+            <th><b>Waktu</b></th>
             <th><b>No HP</b></th>
             <th width="1%"><b>Aksi</b></th>
          </thead>

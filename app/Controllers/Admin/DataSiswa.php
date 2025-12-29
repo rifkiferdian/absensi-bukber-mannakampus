@@ -51,7 +51,7 @@ class DataSiswa extends BaseController
    public function index()
    {
       $data = [
-         'title' => 'Data Siswa',
+         'title' => 'Data Tamu',
          'ctx' => 'siswa',
          'kelas' => $this->kelasModel->getDataKelas(),
          'jurusan' => $this->jurusanModel->getDataJurusan()

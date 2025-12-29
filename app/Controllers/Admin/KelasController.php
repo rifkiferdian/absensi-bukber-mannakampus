@@ -27,7 +27,7 @@ class KelasController extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Kelas & Jurusan',
+            'title' => 'Agenda & Waktu',
             'ctx' => 'kelas',
         ];
 

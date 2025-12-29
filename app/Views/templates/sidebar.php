@@ -42,31 +42,31 @@ switch ($context) {
          <li class="nav-item <?= $context == 'absen-siswa' ? 'active' : ''; ?>">
             <a class="nav-link" href="<?= base_url('admin/absen-siswa'); ?>">
                <i class="material-icons">checklist</i>
-               <p>Absensi Siswa</p>
+               <p>Absensi Tamu</p>
             </a>
          </li>
          <li class="nav-item <?= $context == 'absen-guru' ? 'active' : ''; ?>">
             <a class="nav-link" href="<?= base_url('admin/absen-guru'); ?>">
                <i class="material-icons">checklist</i>
-               <p>Absensi Guru</p>
+               <p>Absensi Panitia</p>
             </a>
          </li>
          <li class="nav-item <?= $context == 'siswa' ? 'active' : ''; ?>">
             <a class="nav-link" href="<?= base_url('admin/siswa'); ?>">
                <i class="material-icons">person</i>
-               <p>Data Siswa</p>
+               <p>Data Tamu</p>
             </a>
          </li>
          <li class="nav-item <?= $context == 'guru' ? 'active' : ''; ?>">
             <a class="nav-link" href="<?= base_url('admin/guru'); ?>">
                <i class="material-icons">person_4</i>
-               <p>Data Guru</p>
+               <p>Data Panitia</p>
             </a>
          </li>
          <li class="nav-item <?= $context == 'kelas' ? 'active' : ''; ?>">
             <a class="nav-link" href="<?= base_url('admin/kelas'); ?>">
                <i class="material-icons">school</i>
-               <p>Data Kelas & Jurusan</p>
+               <p>Data Agenda and Waktu</p>
             </a>
          </li>
          <li class="nav-item <?= $context == 'qr' ? 'active' : ''; ?>">

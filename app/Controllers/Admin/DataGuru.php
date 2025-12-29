@@ -38,7 +38,7 @@ class DataGuru extends BaseController
    public function index()
    {
       $data = [
-         'title' => 'Data Guru',
+         'title' => 'Data Panitia',
          'ctx' => 'guru',
       ];
 

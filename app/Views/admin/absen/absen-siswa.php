@@ -9,7 +9,7 @@
                   <div class="row justify-content-between">
                      <div class="col">
                         <div class="pt-3 pl-3">
-                           <h4><b>Daftar Kelas</b></h4>
+                           <h4><b>Daftar Agenda</b></h4>
                            <p>Silakan pilih kelas</p>
                         </div>
                      </div>

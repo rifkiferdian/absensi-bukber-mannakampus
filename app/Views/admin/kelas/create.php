@@ -22,9 +22,9 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <label for="id_jurusan">Jurusan</label>
+                  <label for="id_jurusan">Waktu</label>
                   <select class="custom-select <?= invalidFeedback('id_jurusan') ? 'is-invalid' : ''; ?>" id="id_jurusan" name="id_jurusan">
-                    <option value="">--Pilih Jurusan--</option>
+                    <option value="">--Pilih Waktu--</option>
                     <?php foreach ($jurusan as $value) : ?>
                       <option value="<?= $value['id']; ?>" <?= old('id_jurusan') == $value['id'] ? 'selected' : ''; ?>>
                         <?= $value['jurusan']; ?>

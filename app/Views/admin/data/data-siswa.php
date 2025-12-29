@@ -15,7 +15,7 @@
                </div>
             <?php endif; ?>
             <a class="btn btn-primary ml-3 pl-3 py-3" href="<?= base_url('admin/siswa/create'); ?>">
-               <i class="material-icons mr-2">add</i> Tambah data siswa
+               <i class="material-icons mr-2">add</i> Tambah data Tamu
             </a>
             <a class="btn btn-primary ml-3 pl-3 py-3" href="<?= base_url('admin/siswa/bulk'); ?>">
                <i class="material-icons mr-2">add</i> Import CSV
@@ -26,7 +26,7 @@
                   <div class="nav-tabs-navigation">
                      <div class="row">
                         <div class="col-md-2">
-                           <h4 class="card-title"><b>Daftar Siswa</b></h4>
+                           <h4 class="card-title"><b>Daftar Tamu</b></h4>
                            <p class="card-category">Angkatan <?= $generalSettings->school_year; ?></p>
                         </div>
                         <div class="col-md-4">

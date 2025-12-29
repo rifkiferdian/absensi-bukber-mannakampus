@@ -43,7 +43,7 @@ function deleteItem(url, id, message) {
 
 function fetchKelasJurusanData(type, target) {
   const url = type === 'kelas' ? BaseConfig.baseURL + 'admin/kelas/list-data' : BaseConfig.baseURL + 'admin/jurusan/list-data';
-  const textProcessing = type === 'kelas' ? 'Daftar kelas muncul disini' : 'Daftar Jurusan muncul disini';
+  const textProcessing = type === 'kelas' ? 'Daftar Agenda muncul disini' : 'Daftar Waktu muncul disini';
 
   $(target).html('<div id="loadingSpinner" class="spinner"></div><p class="text-center mt-3">' + textProcessing + '</p>');
 
