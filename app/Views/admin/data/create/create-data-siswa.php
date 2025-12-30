@@ -6,7 +6,7 @@
          <div class="col-lg-12 col-md-12">
             <div class="card">
                <div class="card-header card-header-primary">
-                  <h4 class="card-title"><b>Form Tambah Siswa</b></h4>
+                  <h4 class="card-title"><b>Form Tambah Tamu</b></h4>
 
                </div>
                <div class="card-body mx-5 my-3">
@@ -43,9 +43,9 @@
                      </div>
                      <div class="row">
                         <div class="col-md-6">
-                           <label for="kelas">Kelas</label>
+                           <label for="kelas">Agenda</label>
                            <select class="custom-select <?= $validation->getError('id_kelas') ? 'is-invalid' : ''; ?>" id="kelas" name="id_kelas">
-                              <option value="">--Pilih kelas--</option>
+                              <option value="">--Pilih agenda--</option>
                               <?php foreach ($kelas as $value) : ?>
                                  <option value="<?= $value['id_kelas']; ?>" <?= old('id_kelas') ?? $oldInput['id_kelas'] ?? '' == $value['id_kelas'] ? 'selected' : ''; ?>>
                                     <?= $value['kelas'] . ' ' . $value['jurusan']; ?>

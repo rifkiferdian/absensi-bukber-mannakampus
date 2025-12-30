@@ -4,7 +4,7 @@
          <thead class="text-success">
             <th><b>No.</b></th>
             <th><b>NUPTK</b></th>
-            <th><b>Nama Guru</b></th>
+            <th><b>Nama</b></th>
             <th><b>Kehadiran</b></th>
             <th><b>Jam masuk</b></th>
             <th><b>Jam pulang</b></th>

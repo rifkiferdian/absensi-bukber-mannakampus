@@ -13,7 +13,7 @@
                                 <div class="nav-tabs-navigation">
                                     <div class="row">
                                         <div class="col-md-4 col-lg-5">
-                                            <h4 class="card-title"><b>Bulk Post Upload Siswa</b></h4>
+                                            <h4 class="card-title"><b>Bulk Post Upload Tamu</b></h4>
                                             <p class="card-category">Angkatan <?= $generalSettings->school_year; ?></p>
                                         </div>
                                     </div>
@@ -66,7 +66,7 @@
                             <div class="card-body">
                                 <form action="<?= base_url('admin/siswa/downloadCSVFilePost'); ?>" method="post">
                                     <?= csrf_field(); ?>
-                                    <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modalKelas">List Kelas</button>
+                                    <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modalKelas">List Agenda</button>
                                     <button class="btn btn-success btn-block" name="submit" value="csv_siswa_template">Download CSV Template</button>
                                 </form>
                             </div>
@@ -82,7 +82,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalKelasTitle">List Kelas</h5>
+                <h5 class="modal-title" id="modalKelasTitle">List Agenda</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -92,7 +92,7 @@
                     <table class="table table-hover">
                         <thead class="text-primary">
                             <th><b>ID</b></th>
-                            <th><b>Kelas / Tingkat</b></th>
+                            <th><b>Agenda</b></th>
                             <th><b>Waktu</b></th>
                         </thead>
                         <tbody>

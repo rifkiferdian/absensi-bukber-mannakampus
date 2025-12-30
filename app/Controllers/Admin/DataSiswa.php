@@ -237,7 +237,7 @@ class DataSiswa extends BaseController
     */
    public function bulkPostSiswa()
    {
-      $data['title'] = 'Import Siswa';
+      $data['title'] = 'Import Tamu';
       $data['ctx'] = 'siswa';
       $data['kelas'] = $this->kelasModel->getDataKelas();
 

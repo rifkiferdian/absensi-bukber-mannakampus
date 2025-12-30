@@ -10,7 +10,7 @@
                      <div class="col">
                         <div class="pt-3 pl-3">
                            <h4><b>Daftar Agenda</b></h4>
-                           <p>Silakan pilih kelas</p>
+                           <p>Silakan pilih</p>
                         </div>
                      </div>
                   </div>
