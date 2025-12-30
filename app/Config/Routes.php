@@ -130,10 +130,16 @@ $routes->group('admin', function (RouteCollection $routes) {
    $routes->post('generate/guru', 'Admin\QRGenerator::generateQrGuru');
 
    // Download QR
-   $routes->get('qr/siswa/download', 'Admin\QRGenerator::downloadAllQrSiswa');
+   // $routes->get('qr/siswa/download', 'Admin\QRGenerator::downloadAllQrSiswa');
+   $routes->get('qr/siswa/download', 'Admin\QRGenerator::downloadAllQrSiswaWithTemplate');
    $routes->get('qr/siswa/(:any)/download', 'Admin\QRGenerator::downloadQrSiswa/$1');
-   $routes->get('qr/guru/download', 'Admin\QRGenerator::downloadAllQrGuru');
+   $routes->get('qr/siswa/(:any)/download-template', 'Admin\QRGenerator::downloadQrSiswaWithTemplate/$1');
+   $routes->get('qr/siswa/download-template', 'Admin\QRGenerator::downloadAllQrSiswaWithTemplate');
+   // $routes->get('qr/guru/download', 'Admin\QRGenerator::downloadAllQrGuru');
+   $routes->get('qr/guru/download', 'Admin\QRGenerator::downloadAllQrGuruWithTemplate');
    $routes->get('qr/guru/(:any)/download', 'Admin\QRGenerator::downloadQrGuru/$1');
+   $routes->get('qr/guru/(:any)/download-template', 'Admin\QRGenerator::downloadQrGuruWithTemplate/$1');
+   $routes->get('qr/guru/download-template', 'Admin\QRGenerator::downloadAllQrGuruWithTemplate');
 
    // admin buat laporan
    $routes->get('laporan', 'Admin\GenerateLaporan::index');

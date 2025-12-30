@@ -35,15 +35,15 @@
         <div class="card">
           <div class="card-header card-header-danger">
             <h4 class="card-title"><b>Generate QR Code</b></h4>
-            <p class="card-category">Generate QR berdasarkan kode unik data siswa/guru</p>
+            <p class="card-category">Generate QR berdasarkan kode unik data tamu/panitia</p>
           </div>
           <div class="card-body">
             <div class="row">
               <div class="col-md-6">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="text-primary"><b>Data Siswa</b></h4>
-                    <p>Total jumlah siswa : <b><?= count($siswa); ?></b>
+                    <h4 class="text-primary"><b>Data Tamu</b></h4>
+                    <p>Total jumlah tamu : <b><?= count($siswa); ?></b>
                       <br>
                       <a href="<?= base_url('admin/siswa'); ?>">Lihat data</a>
                     </p>
@@ -84,10 +84,10 @@
                     </div>
                     <hr>
                     <br>
-                    <h4 class="text-primary"><b>Generate per kelas</b></h4>
+                    <h4 class="text-primary"><b>Generate per Agenda</b></h4>
                     <form action="<?= base_url('admin/qr/siswa/download'); ?>" method="get">
                       <select name="id_kelas" id="kelasSelect" class="custom-select mb-3" required>
-                        <option value="">--Pilih kelas--</option>
+                        <option value="">--Pilih Agenda--</option>
                         <?php foreach ($kelas as $value) : ?>
                           <option id="idKelas<?= $value['id_kelas']; ?>" value="<?= $value['id_kelas']; ?>">
                             <?= $value['kelas'] . ' ' . $value['jurusan']; ?>
@@ -104,7 +104,7 @@
                               </div>
                               <div>
                                 <div class="text-start">
-                                  <h6 class="d-inline">Generate per kelas</h6>
+                                  <h6 class="d-inline">Generate per Agenda</h6>
                                 </div>
                                 <div id="progressKelas" class="d-none">
                                   <span id="progressTextKelas"></span>
@@ -125,7 +125,7 @@
                               </div>
                               <div>
                                 <div class="text-start">
-                                  <h6 class="d-inline">Download Per Kelas</h6>
+                                  <h6 class="d-inline">Download Per Agenda</h6>
                                 </div>
                               </div>
                             </div>
@@ -136,7 +136,7 @@
                     <br>
                     <p>
                       Untuk generate/download QR Code per masing-masing siswa kunjungi
-                      <a href="<?= base_url('admin/siswa'); ?>"><b>data siswa</b></a>
+                      <a href="<?= base_url('admin/siswa'); ?>"><b>data Tamu</b></a>
                     </p>
                   </div>
                 </div>
@@ -144,8 +144,8 @@
               <div class="col-md-6">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="text-success"><b>Data Guru</b></h4>
-                    <p>Total jumlah guru : <b><?= count($guru); ?></b>
+                    <h4 class="text-success"><b>Data Panitia</b></h4>
+                    <p>Total jumlah Panitia : <b><?= count($guru); ?></b>
                       <br>
                       <a href="<?= base_url('admin/guru'); ?>" class="text-success">Lihat data</a>
                     </p>
@@ -190,7 +190,7 @@
                     <br>
                     <p>
                       Untuk generate/download QR Code per masing-masing guru kunjungi
-                      <a href="<?= base_url('admin/guru'); ?>" class="text-success"><b>data guru</b></a>
+                      <a href="<?= base_url('admin/guru'); ?>" class="text-success"><b>data Panitia</b></a>
                     </p>
                   </div>
                 </div>
@@ -291,7 +291,7 @@
 
         if (dataSiswaPerKelas.length < 1) {
           $('#progressKelas').addClass('d-none');
-          $('#textErrorKelas').html('Data siswa kelas ' + kelas + ' tidak ditemukan');
+          $('#textErrorKelas').html('Data tamu kelas ' + kelas + ' tidak ditemukan');
           return;
         }
 

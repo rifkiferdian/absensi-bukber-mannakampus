@@ -32,7 +32,7 @@
                               <i class="material-icons">delete_forever</i>
                            </button>
                         </form>
-                        <a title="Download QR Code" href="<?= base_url('admin/qr/guru/' . $value['id_guru'] . '/download'); ?>" class="btn btn-info p-2">
+                        <a title="Download QR Code" href="<?= base_url('admin/qr/guru/' . $value['id_guru'] . '/download-template'); ?>" class="btn btn-info p-2">
                            <i class="material-icons">qr_code</i>
                         </a>
                      </div>

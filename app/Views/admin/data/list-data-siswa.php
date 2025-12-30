@@ -36,7 +36,7 @@
                               <i class="material-icons">delete_forever</i>
                            </button>
                         </form>
-                        <a title="Download QR Code" href="<?= base_url('admin/qr/siswa/' . $value['id_siswa'] . '/download'); ?>" class="btn btn-success p-2">
+                        <a title="Download QR Code" href="<?= base_url('admin/qr/siswa/' . $value['id_siswa'] . '/download-template'); ?>" class="btn btn-success p-2">
                            <i class="material-icons">qr_code</i>
                         </a>
                      </div>

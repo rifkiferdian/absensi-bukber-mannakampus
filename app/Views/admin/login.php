@@ -8,13 +8,68 @@
  <?= $this->endSection() ?>
 
  <?= $this->section('content'); ?>
+
+ <style>
+   /* CSS untuk logo responsif */
+   .responsive-logo {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      transition: all 0.3s ease; /* Animasi halus saat resize */
+   }
+
+   /* Desktop/Laptop besar (≥1200px) */
+   @media (min-width: 1200px) {
+      .responsive-logo {
+         max-width: 280px; /* Ukuran kecil untuk laptop besar */
+      }
+   }
+
+   /* Laptop standar (992px - 1199px) */
+   @media (min-width: 992px) and (max-width: 1199px) {
+      .responsive-logo {
+         max-width: 270px; /* Lebih kecil */
+      }
+   }
+
+   /* Tablet landscape (768px - 991px) */
+   @media (min-width: 768px) and (max-width: 991px) {
+      .responsive-logo {
+         max-width: 250px;
+      }
+   }
+
+   /* Tablet portrait (576px - 767px) */
+   @media (min-width: 576px) and (max-width: 767px) {
+      .responsive-logo {
+         max-width: 220px;
+      }
+   }
+
+   /* Handphone (≤575px) */
+   @media (max-width: 575px) {
+      .responsive-logo {
+         max-width: 250px;
+      }
+   }
+
+   /* Handphone sangat kecil (≤375px) */
+   @media (max-width: 375px) {
+      .responsive-logo {
+         max-width: 200px;
+      }
+   }
+ </style>
+
  <div class="main-panel">
     <div class="content">
+       <center><img class="responsive-logo" src="<?php echo base_url('uploads/logo/logo_6951e9280661f8-73637506.png'); ?>"></center><br>
        <div class="container-fluid">
           <div class="row">
              <div class="col-md-4 m-auto">
                 <div class="card">
-                   <div class="card-header card-header-primary mb-48">
+                   <div class="card-header card-header-warning mb-48">
                       <h4 class="card-title">Login petugas</h4>
                       <p class="card-category">Silahkan masukkan username dan password anda</p>
                    </div>
@@ -67,7 +122,7 @@
 
                          <br>
 
-                         <button type="submit" class="btn btn-primary btn-block"><?= lang('Auth.loginAction') ?></button>
+                         <button type="submit" class="btn btn-warning btn-block"><?= lang('Auth.loginAction') ?></button>
 
                          <?php if ($config->activeResetter) : ?>
                             <p><a href="<?= url_to('forgot') ?>"><?= lang('Auth.forgotYourPassword') ?></a></p>

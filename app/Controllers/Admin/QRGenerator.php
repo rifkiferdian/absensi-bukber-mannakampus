@@ -136,14 +136,14 @@ class QRGenerator extends BaseController
       // set qr code data
       $this->qrCode->setData($unique_code);
 
-      $this->label->setText($nama);
+      // $this->label->setText($nama);
 
       // Save it to a file
       $this->writer
          ->write(
             qrCode: $this->qrCode,
             logo: $this->logo,
-            label: $this->label
+            // label: $this->label
          )
          ->saveToFile(
             path: $this->qrCodeFilePath . $filename
@@ -180,6 +180,124 @@ class QRGenerator extends BaseController
             null,
             true,
          );
+      } catch (\Throwable $th) {
+         session()->setFlashdata([
+            'msg' => $th->getMessage(),
+            'error' => true
+         ]);
+         return redirect()->back();
+      }
+   }
+
+   public function downloadQrSiswaWithTemplate($idSiswa = null)
+   {
+      $siswa = (new SiswaModel)->find($idSiswa);
+      if (!$siswa) {
+         session()->setFlashdata([
+            'msg' => 'Siswa tidak ditemukan',
+            'error' => true
+         ]);
+         return redirect()->back();
+      }
+
+      $templatePath = FCPATH . 'assets/img/template-qr/template-qr.JPG';
+      $fontPath = FCPATH . 'assets/fonts/Arial.ttf';
+      if (!file_exists($fontPath)) {
+         $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
+      }
+
+      if (!file_exists($templatePath) || !file_exists($fontPath)) {
+         session()->setFlashdata([
+            'msg' => 'Template QR atau font tidak ditemukan',
+            'error' => true
+         ]);
+         return redirect()->back();
+      }
+
+      try {
+         $kelas = $this->getKelasJurusanSlug($siswa['id_kelas']) ?? 'tmp';
+         $this->qrCodeFilePath .= "qr-siswa/$kelas/";
+
+         if (!file_exists($this->qrCodeFilePath)) {
+            mkdir($this->qrCodeFilePath, recursive: true);
+         }
+
+         $qrPath = $this->generate(
+            nama: $siswa['nama_siswa'],
+            nomor: $siswa['nis'],
+            unique_code: $siswa['unique_code'],
+         );
+
+         // Bersihkan buffer output jika ada
+         while (ob_get_level()) {
+            ob_end_clean();
+         }
+
+         // Siapkan gambar template dan QR
+         $image = imagecreatefromjpeg($templatePath);
+         $qr = imagecreatefrompng($qrPath);
+         if (!$image || !$qr) {
+            throw new \RuntimeException('Gagal memuat template atau QR Code');
+         }
+
+         imagealphablending($qr, true);
+         imagesavealpha($qr, true);
+
+         $width = imagesx($image);
+         $height = imagesy($image);
+
+         // Tulis nama siswa di tengah dengan bayangan
+         $text = $siswa['nama_siswa'];
+         $fontSize = 27;
+         $angle = 0;
+         $textColor = imagecolorallocate($image, 0, 0, 0);
+         $shadowColor = imagecolorallocate($image, 160, 160, 160);
+
+         $box = imagettfbbox($fontSize, $angle, $fontPath, $text);
+         $textWidth = abs($box[4] - $box[0]);
+         $textHeight = abs($box[5] - $box[1]);
+
+         $xText = ($width / 2) - ($textWidth / 2);
+         $yText = ($height / 2) + ($textHeight / 2) + 270;
+
+         imagettftext($image, $fontSize, $angle, $xText + 2, $yText + 2, $shadowColor, $fontPath, $text);
+         imagettftext($image, $fontSize, $angle, $xText, $yText, $textColor, $fontPath, $text);
+
+         // Tempel QR di tengah template
+         $qrSize = 400;
+         $qrW = imagesx($qr);
+         $qrH = imagesy($qr);
+
+         $xQr = ($width - $qrSize) / 2;
+         $yQr = ($height - $qrSize) / 2 - 80;
+
+         imagecopyresampled(
+            $image,
+            $qr,
+            $xQr,
+            $yQr,
+            0,
+            0,
+            $qrSize,
+            $qrSize,
+            $qrW,
+            $qrH
+         );
+
+         ob_start();
+         imagejpeg($image, null, 90);
+         imagedestroy($image);
+         imagedestroy($qr);
+         $data = ob_get_clean();
+
+         $downloadName = 'qr-siswa-' . url_title($siswa['nama_siswa'], lowercase: true) . '.jpg';
+
+         return $this->response
+            ->setHeader('Content-Type', 'image/jpeg')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $downloadName . '"')
+            ->setHeader('Content-Length', (string) strlen($data))
+            ->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate')
+            ->setBody($data);
       } catch (\Throwable $th) {
          session()->setFlashdata([
             'msg' => $th->getMessage(),
@@ -227,6 +345,123 @@ class QRGenerator extends BaseController
       }
    }
 
+   public function downloadQrGuruWithTemplate($idGuru = null)
+   {
+      $guru = (new GuruModel)->find($idGuru);
+      if (!$guru) {
+         session()->setFlashdata([
+            'msg' => 'Data tidak ditemukan',
+            'error' => true
+         ]);
+         return redirect()->back();
+      }
+
+      $templatePath = FCPATH . 'assets/img/template-qr/template-qr.JPG';
+      $fontPath = FCPATH . 'assets/fonts/Arial.ttf';
+      if (!file_exists($fontPath)) {
+         $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
+      }
+
+      if (!file_exists($templatePath) || !file_exists($fontPath)) {
+         session()->setFlashdata([
+            'msg' => 'Template QR atau font tidak ditemukan',
+            'error' => true
+         ]);
+         return redirect()->back();
+      }
+
+      try {
+         // set warna guru
+         $this->qrCode->setForegroundColor($this->foregroundColor2);
+         $this->label->setTextColor($this->foregroundColor2);
+
+         $this->qrCodeFilePath .= 'qr-guru/';
+
+         if (!file_exists($this->qrCodeFilePath)) {
+            mkdir($this->qrCodeFilePath, recursive: true);
+         }
+
+         $qrPath = $this->generate(
+            nama: $guru['nama_guru'],
+            nomor: $guru['nuptk'],
+            unique_code: $guru['unique_code'],
+         );
+
+         while (ob_get_level()) {
+            ob_end_clean();
+         }
+
+         $image = imagecreatefromjpeg($templatePath);
+         $qr = imagecreatefrompng($qrPath);
+         if (!$image || !$qr) {
+            throw new \RuntimeException('Gagal memuat template atau QR Code');
+         }
+
+         imagealphablending($qr, true);
+         imagesavealpha($qr, true);
+
+         $width = imagesx($image);
+         $height = imagesy($image);
+
+         $text = $guru['nama_guru'];
+         $fontSize = 27;
+         $angle = 0;
+         $textColor = imagecolorallocate($image, 0, 0, 0);
+         $shadowColor = imagecolorallocate($image, 160, 160, 160);
+
+         $box = imagettfbbox($fontSize, $angle, $fontPath, $text);
+         $textWidth = abs($box[4] - $box[0]);
+         $textHeight = abs($box[5] - $box[1]);
+
+         $xText = ($width / 2) - ($textWidth / 2);
+         $yText = ($height / 2) + ($textHeight / 2) + 270;
+
+         imagettftext($image, $fontSize, $angle, $xText + 2, $yText + 2, $shadowColor, $fontPath, $text);
+         imagettftext($image, $fontSize, $angle, $xText, $yText, $textColor, $fontPath, $text);
+
+         $qrSize = 400;
+         $qrW = imagesx($qr);
+         $qrH = imagesy($qr);
+
+         $xQr = ($width - $qrSize) / 2;
+         $yQr = ($height - $qrSize) / 2 - 80;
+
+         imagecopyresampled(
+            $image,
+            $qr,
+            $xQr,
+            $yQr,
+            0,
+            0,
+            $qrSize,
+            $qrSize,
+            $qrW,
+            $qrH
+         );
+
+         ob_start();
+         imagejpeg($image, null, 90);
+         imagedestroy($image);
+         imagedestroy($qr);
+         $data = ob_get_clean();
+
+         $downloadName = 'qr-guru-' . url_title($guru['nama_guru'], lowercase: true) . '.jpg';
+
+         return $this->response
+            ->setHeader('Content-Type', 'image/jpeg')
+            ->setHeader('Content-Disposition', 'attachment; filename="' . $downloadName . '"')
+            ->setHeader('Content-Length', (string) strlen($data))
+            ->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate')
+            ->setBody($data);
+      } catch (\Throwable $th) {
+         session()->setFlashdata([
+            'msg' => $th->getMessage(),
+            'error' => true
+         ]);
+         return redirect()->back();
+      }
+   }
+
    public function downloadAllQrSiswa()
    {
       $kelas = null;
@@ -252,11 +487,87 @@ class QRGenerator extends BaseController
       }
 
       try {
-         $output = self::UPLOADS_PATH . 'qrcode-siswa' . ($kelas ? "_{$kelas}.zip" : '.zip');
+         $output = self::UPLOADS_PATH . 'qrcode-tamu' . ($kelas ? "_{$kelas}.zip" : '.zip');
 
          $this->zipFolder($this->qrCodeFilePath, $output);
 
          return $this->response->download($output, null,  true);
+      } catch (\Throwable $th) {
+         session()->setFlashdata([
+            'msg' => $th->getMessage(),
+            'error' => true
+         ]);
+         return redirect()->back();
+      }
+   }
+
+   public function downloadAllQrSiswaWithTemplate()
+   {
+      $templatePath = FCPATH . 'assets/img/template-qr/template-qr.JPG';
+      $fontPath = FCPATH . 'assets/fonts/Arial.ttf';
+      if (!file_exists($fontPath)) {
+         $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
+      }
+      if (!file_exists($templatePath) || !file_exists($fontPath)) {
+         session()->setFlashdata([
+            'msg' => 'Template QR atau font tidak ditemukan',
+            'error' => true
+         ]);
+         return redirect()->back();
+      }
+
+      $kelasSlug = null;
+      $idKelas = $this->request->getVar('id_kelas');
+      if ($idKelas) {
+         $kelasSlug = $this->getKelasJurusanSlug($idKelas);
+         if (!$kelasSlug) {
+            session()->setFlashdata([
+               'msg' => 'Kelas tidak ditemukan',
+               'error' => true
+            ]);
+            return redirect()->back();
+         }
+      }
+
+      $siswaModel = new SiswaModel();
+      $siswas = $idKelas ? $siswaModel->where('id_kelas', $idKelas)->findAll() : $siswaModel->findAll();
+      if (!$siswas) {
+         session()->setFlashdata([
+            'msg' => 'Data siswa tidak ditemukan',
+            'error' => true
+         ]);
+         return redirect()->back();
+      }
+
+      try {
+         $qrDir = self::UPLOADS_PATH . 'qr-siswa/' . ($kelasSlug ? "{$kelasSlug}/" : '');
+         $outputDir = self::UPLOADS_PATH . 'qr-siswa-template/' . ($kelasSlug ? "{$kelasSlug}/" : '');
+         if (!file_exists($qrDir)) {
+            mkdir($qrDir, recursive: true);
+         }
+         if (!file_exists($outputDir)) {
+            mkdir($outputDir, recursive: true);
+         }
+
+         $this->setQrCodeFilePath($qrDir);
+
+         foreach ($siswas as $siswa) {
+            $qrPath = $this->generate(
+               nama: $siswa['nama_siswa'],
+               nomor: $siswa['nis'],
+               unique_code: $siswa['unique_code'],
+            );
+
+            // echo '<pre>'.print_r($siswa['nama_siswa'],1).'</pre>'; die();
+
+            $fileName = url_title($siswa['nama_siswa'], lowercase: true) . '.jpg';
+            $this->createTemplateImage($templatePath, $fontPath, $qrPath, $siswa['nama_siswa'], $outputDir . $fileName);
+         }
+
+         $zipOutput = self::UPLOADS_PATH . 'qrcode-tamu-template' . ($kelasSlug ? "_{$kelasSlug}.zip" : '.zip');
+         $this->zipFolder($outputDir, $zipOutput);
+
+         return $this->response->download($zipOutput, null, true);
       } catch (\Throwable $th) {
          session()->setFlashdata([
             'msg' => $th->getMessage(),
@@ -279,11 +590,74 @@ class QRGenerator extends BaseController
       }
 
       try {
-         $output = self::UPLOADS_PATH . DIRECTORY_SEPARATOR . 'qrcode-guru.zip';
+         $output = self::UPLOADS_PATH . DIRECTORY_SEPARATOR . 'qrcode-panitia.zip';
 
          $this->zipFolder($this->qrCodeFilePath, $output);
 
          return $this->response->download($output, null,  true);
+      } catch (\Throwable $th) {
+         session()->setFlashdata([
+            'msg' => $th->getMessage(),
+            'error' => true
+         ]);
+         return redirect()->back();
+      }
+   }
+
+   public function downloadAllQrGuruWithTemplate()
+   {
+      $templatePath = FCPATH . 'assets/img/template-qr/template-qr.JPG';
+      $fontPath = FCPATH . 'assets/fonts/Arial.ttf';
+      if (!file_exists($fontPath)) {
+         $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
+      }
+      if (!file_exists($templatePath) || !file_exists($fontPath)) {
+         session()->setFlashdata([
+            'msg' => 'Template QR atau font tidak ditemukan',
+            'error' => true
+         ]);
+         return redirect()->back();
+      }
+
+      $guruModel = new GuruModel();
+      $gurus = $guruModel->findAll();
+      if (!$gurus) {
+         session()->setFlashdata([
+            'msg' => 'Data guru tidak ditemukan',
+            'error' => true
+         ]);
+         return redirect()->back();
+      }
+
+      try {
+         $qrDir = self::UPLOADS_PATH . 'qr-guru/';
+         $outputDir = self::UPLOADS_PATH . 'qr-guru-template/';
+         if (!file_exists($qrDir)) {
+            mkdir($qrDir, recursive: true);
+         }
+         if (!file_exists($outputDir)) {
+            mkdir($outputDir, recursive: true);
+         }
+
+         $this->setQrCodeFilePath($qrDir);
+         $this->qrCode->setForegroundColor($this->foregroundColor2);
+         $this->label->setTextColor($this->foregroundColor2);
+
+         foreach ($gurus as $guru) {
+            $qrPath = $this->generate(
+               nama: $guru['nama_guru'],
+               nomor: $guru['nuptk'],
+               unique_code: $guru['unique_code'],
+            );
+
+            $fileName = url_title($guru['nama_guru'], lowercase: true) . '.jpg';
+            $this->createTemplateImage($templatePath, $fontPath, $qrPath, $guru['nama_guru'], $outputDir . $fileName);
+         }
+
+         $zipOutput = self::UPLOADS_PATH . 'qrcode-guru-template.zip';
+         $this->zipFolder($outputDir, $zipOutput);
+
+         return $this->response->download($zipOutput, null, true);
       } catch (\Throwable $th) {
          session()->setFlashdata([
             'msg' => $th->getMessage(),
@@ -337,5 +711,66 @@ class QRGenerator extends BaseController
       } else {
          return false;
       }
+   }
+
+   private function createTemplateImage(string $templatePath, string $fontPath, string $qrPath, string $text, string $outputPath): void
+   {
+      // bersihkan buffer
+      while (ob_get_level()) {
+         ob_end_clean();
+      }
+
+      $image = imagecreatefromjpeg($templatePath);
+      $qr = imagecreatefrompng($qrPath);
+      if (!$image || !$qr) {
+         throw new \RuntimeException('Gagal memuat template atau QR Code');
+      }
+
+      imagealphablending($qr, true);
+      imagesavealpha($qr, true);
+
+      $width = imagesx($image);
+      $height = imagesy($image);
+
+      $fontSize = 27;
+      $angle = 0;
+      $textColor = imagecolorallocate($image, 0, 0, 0);
+      $shadowColor = imagecolorallocate($image, 160, 160, 160);
+
+      // echo '<pre>'.print_r($text,1).'</pre>'; die();
+
+      $box = imagettfbbox($fontSize, $angle, $fontPath, $text);
+      $textWidth = abs($box[4] - $box[0]);
+      $textHeight = abs($box[5] - $box[1]);
+
+      $xText = ($width / 2) - ($textWidth / 2);
+      $yText = ($height / 2) + ($textHeight / 2) + 270;
+
+      imagettftext($image, $fontSize, $angle, $xText + 2, $yText + 2, $shadowColor, $fontPath, $text);
+      imagettftext($image, $fontSize, $angle, $xText, $yText, $textColor, $fontPath, $text);
+
+      $qrSize = 400;
+      $qrW = imagesx($qr);
+      $qrH = imagesy($qr);
+
+      $xQr = ($width - $qrSize) / 2;
+      $yQr = ($height - $qrSize) / 2 - 80;
+
+      imagecopyresampled(
+         $image,
+         $qr,
+         $xQr,
+         $yQr,
+         0,
+         0,
+         $qrSize,
+         $qrSize,
+         $qrW,
+         $qrH
+      );
+
+      imagejpeg($image, $outputPath, 90);
+      imagedestroy($image);
+      imagedestroy($qr);
    }
 }
