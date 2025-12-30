@@ -147,8 +147,8 @@
                         <div class="ct-chart" id="kehadiranSiswa"></div>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">Tingkat kehadiran siswa</h4>
-                        <p class="card-category">Jumlah kehadiran siswa dalam 7 hari terakhir</p>
+                        <h4 class="card-title">Tingkat kehadiran tamu</h4>
+                        <p class="card-category">Jumlah kehadiran tamu dalam 7 hari terakhir</p>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -163,8 +163,8 @@
                         <div class="ct-chart" id="kehadiranGuru"></div>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">Tingkat kehadiran guru</h4>
-                        <p class="card-category">Jumlah kehadiran guru dalam 7 hari terakhir</p>
+                        <h4 class="card-title">Tingkat kehadiran panitia</h4>
+                        <p class="card-category">Jumlah kehadiran panitia dalam 7 hari terakhir</p>
                     </div>
                     <div class="card-footer">
                         <div class="stats">

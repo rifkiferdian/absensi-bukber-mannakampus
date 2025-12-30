@@ -669,29 +669,23 @@ class QRGenerator extends BaseController
 
    private function zipFolder(string $folder, string $output)
    {
+      $normalizedFolder = rtrim(str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $folder), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+      $basePath = realpath($normalizedFolder) ?: $normalizedFolder;
+
       $zip = new \ZipArchive;
       $zip->open($output, \ZipArchive::CREATE | \ZipArchive::OVERWRITE);
 
-      // Create recursive directory iterator
-      /** @var \SplFileInfo[] $files */
       $files = new \RecursiveIteratorIterator(
-         new \RecursiveDirectoryIterator($folder),
+         new \RecursiveDirectoryIterator($basePath, \FilesystemIterator::SKIP_DOTS),
          \RecursiveIteratorIterator::LEAVES_ONLY
       );
 
       foreach ($files as $file) {
-         // Skip directories (they would be added automatically)
          if (!$file->isDir()) {
-            // Get real and relative path for current file
             $filePath = $file->getRealPath();
-            $folderLength = strlen($folder);
-            if ($folder[$folderLength - 1] === DIRECTORY_SEPARATOR) {
-               $relativePath = substr($filePath, $folderLength);
-            } else {
-               $relativePath = substr($filePath, $folderLength + 1);
-            }
+            $relativePath = substr($filePath, strlen($basePath));
+            $relativePath = ltrim(str_replace('\\', '/', $relativePath), '/');
 
-            // Add current file to archive
             $zip->addFile($filePath, $relativePath);
          }
       }
