@@ -12,11 +12,12 @@ if (empty($type)) {
          <div class="row w-100">
             <div class="col">
                <p>Nama : <b><?= $data['nama_siswa']; ?></b></p>
-               <p>NIS : <b><?= $data['nis']; ?></b></p>
-               <p>Kelas : <b><?= $data['kelas'] . ' ' . $data['jurusan']; ?></b></p>
+               <p>NIS/ID : <b><?= $data['nis']; ?></b></p>
+               <p>Agenda : <b><?= $data['kelas'] . ' ' . $data['jurusan']; ?></b></p>
             </div>
             <div class="col">
                <?= jam($presensi ?? []); ?>
+               <p>Ket : <b><?= $data['keterangan'] ?? '-'; ?></b></p>
             </div>
          </div>
       <?php break;
@@ -44,7 +45,7 @@ function jam($presensi)
 {
    ?>
    <p>Jam masuk : <b class="text-info"><?= $presensi['jam_masuk'] ?? '-'; ?></b></p>
-   <p>Jam pulang : <b class="text-info"><?= $presensi['jam_keluar'] ?? '-'; ?></b></p>
+   <!-- <p>Jam pulang : <b class="text-info"><?= $presensi['jam_keluar'] ?? '-'; ?></b></p> -->
 <?php
 }
 
