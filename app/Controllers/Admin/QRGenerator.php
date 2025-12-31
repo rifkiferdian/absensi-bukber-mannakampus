@@ -290,7 +290,7 @@ class QRGenerator extends BaseController
          imagedestroy($qr);
          $data = ob_get_clean();
 
-         $downloadName = 'qr-siswa-' . url_title($siswa['nama_siswa'], lowercase: true) . '.jpg';
+         $downloadName = 'qr-tamu-' . url_title($siswa['nama_siswa'], lowercase: true) . '.jpg';
 
          return $this->response
             ->setHeader('Content-Type', 'image/jpeg')
@@ -445,7 +445,7 @@ class QRGenerator extends BaseController
          imagedestroy($qr);
          $data = ob_get_clean();
 
-         $downloadName = 'qr-guru-' . url_title($guru['nama_guru'], lowercase: true) . '.jpg';
+         $downloadName = 'qr-panitia-' . url_title($guru['nama_guru'], lowercase: true) . '.jpg';
 
          return $this->response
             ->setHeader('Content-Type', 'image/jpeg')
