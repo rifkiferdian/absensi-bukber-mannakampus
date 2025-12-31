@@ -10,6 +10,17 @@
             <a href="#" class="btn btn-primary pl-3 mr-3 mt-3" onclick="kelas = onDateChange()" data-toggle="tab">
                 <i class="material-icons mr-2">refresh</i> Refresh
             </a>
+            <form action="<?= base_url('/admin/cetak-report-day'); ?>" method="POST" target="_blank" style="display:inline;">
+                <input type="hidden" name="id_kelas" value="<?= $idKelas; ?>">
+                <input type="hidden" name="tanggal" value="<?= $tanggal; ?>">
+                <button type="submit" class="btn btn-success pl-3 mr-3 mt-3" formtarget="_blank">
+                    <i class="material-icons mr-2">print</i> Cetak
+                </button>
+            </form>
+
+            <!-- <a href="#" class="btn btn-success pl-3 mr-3 mt-3" onclick="kelas = printReportDay('<?= $idKelas ?>','<?= $tanggal ?>')" data-toggle="tab">
+                <i class="material-icons mr-2">print</i> Cetak
+            </a> -->
         </div>
         <div class="col-auto">
             <div class="px-4">

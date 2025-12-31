@@ -115,6 +115,8 @@ $routes->group('admin', function (RouteCollection $routes) {
    $routes->post('absen-siswa/kehadiran', 'Admin\DataAbsenSiswa::ambilKehadiran'); // ambil kehadiran siswa
    $routes->post('absen-siswa/edit', 'Admin\DataAbsenSiswa::ubahKehadiran'); // ubah kehadiran siswa
 
+   $routes->post('cetak-report-day', 'Admin\DataAbsenSiswa::cetakReportDay'); // cetak laporan harian
+
    // admin lihat data absen guru
    $routes->get('absen-guru', 'Admin\DataAbsenGuru::index');
    $routes->post('absen-guru', 'Admin\DataAbsenGuru::ambilDataGuru'); // ambil guru berdasarkan tanggal

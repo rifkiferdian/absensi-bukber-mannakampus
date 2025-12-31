@@ -62,12 +62,32 @@ class DataAbsenSiswa extends BaseController
 
       $data = [
          'kelas' => $kelas,
+         'idKelas' => $idKelas,
+         'tanggal' => $tanggal,
          'data' => $result,
          'listKehadiran' => $this->kehadiranModel->getAllKehadiran(),
          'lewat' => $lewat
       ];
 
       return view('admin/absen/list-absen-siswa', $data);
+   }
+
+   function cetakReportDay() {
+      
+      $idKelas = $this->request->getPost('id_kelas');
+      $tanggal = $this->request->getPost('tanggal');
+      
+      $result = $this->presensiSiswa->getPresensiByKelasTanggal($idKelas, $tanggal);
+      $kelasInfo = (array) $this->kelasModel->getKelas($idKelas);
+
+      $data = [
+         'idKelas' => $idKelas,
+         'tanggal' => $tanggal,
+         'kelasInfo' => $kelasInfo,
+         'data' => $result,
+         'listKehadiran' => $this->kehadiranModel->getAllKehadiran(),
+      ];
+      return view('admin/cetak/cetak-report-day', $data);
    }
 
    public function ambilKehadiran()

@@ -65,20 +65,22 @@ class PresensiSiswaModel extends Model implements PresensiInterface
 
    public function getPresensiByKelasTanggal($idKelas, $tanggal)
    {
+      $escapedTanggal = $this->db->escape($tanggal);
+
       return $this->setTable('tb_siswa')
-         ->select('*')
-         ->join(
-            "(SELECT id_presensi, id_siswa AS id_siswa_presensi, tanggal, jam_masuk, jam_keluar, id_kehadiran, keterangan FROM tb_presensi_siswa)tb_presensi_siswa",
-            "{$this->table}.id_siswa = tb_presensi_siswa.id_siswa_presensi AND tb_presensi_siswa.tanggal = '$tanggal'",
-            'left'
+         ->select(
+            'tb_siswa.id_siswa, tb_siswa.nis, tb_siswa.nama_siswa, tb_siswa.id_kelas, tb_siswa.jenis_kelamin, ' .
+               'tb_siswa.no_hp, tb_siswa.keterangan AS keterangan_siswa, tb_siswa.unique_code, ' .
+               'tb_presensi_siswa.id_presensi, tb_presensi_siswa.tanggal, tb_presensi_siswa.jam_masuk, ' .
+               'tb_presensi_siswa.jam_keluar, tb_presensi_siswa.id_kehadiran, tb_presensi_siswa.keterangan AS keterangan'
          )
          ->join(
-            'tb_kehadiran',
-            'tb_presensi_siswa.id_kehadiran = tb_kehadiran.id_kehadiran',
+            "(SELECT id_presensi, id_siswa AS id_siswa_presensi, tanggal, jam_masuk, jam_keluar, id_kehadiran, keterangan FROM tb_presensi_siswa) tb_presensi_siswa",
+            "tb_siswa.id_siswa = tb_presensi_siswa.id_siswa_presensi AND tb_presensi_siswa.tanggal = $escapedTanggal",
             'left'
          )
-         ->where("{$this->table}.id_kelas = $idKelas")
-         ->orderBy("nama_siswa")
+         ->where('tb_siswa.id_kelas', $idKelas)
+         ->orderBy('tb_siswa.nama_siswa')
          ->findAll();
    }
 
