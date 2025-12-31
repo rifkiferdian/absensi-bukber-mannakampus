@@ -9,7 +9,8 @@
             <th><b>Jenis Kelamin</b></th>
             <th><b>Agenda</b></th>
             <th><b>Waktu</b></th>
-            <th><b>No HP</b></th>
+            <!-- <th><b>No HP</b></th> -->
+            <th><b>Keterangan</b></th>
             <th width="1%"><b>Aksi</b></th>
          </thead>
          <tbody>
@@ -23,7 +24,8 @@
                   <td><?= $value['jenis_kelamin']; ?></td>
                   <td><?= $value['kelas']; ?></td>
                   <td><?= $value['jurusan']; ?></td>
-                  <td><?= $value['no_hp']; ?></td>
+                  <!-- <td><?= $value['no_hp']; ?></td> -->
+                  <td><?= $value['keterangan']; ?></td>
                   <td>
                      <div class="d-flex justify-content-center">
                         <a title="Edit" href="<?= base_url('admin/siswa/edit/' . $value['id_siswa']); ?>" class="btn btn-primary p-2" id="<?= $value['nis']; ?>">

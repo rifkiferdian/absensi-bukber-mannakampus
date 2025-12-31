@@ -9,13 +9,14 @@ class SiswaModel extends Model
    protected function initialize()
    {
       $this->allowedFields = [
-         'nis',
-         'nama_siswa',
-         'id_kelas',
-         'jenis_kelamin',
-         'no_hp',
-         'unique_code'
-      ];
+      'nis',
+      'nama_siswa',
+      'id_kelas',
+      'jenis_kelamin',
+      'no_hp',
+      'keterangan',
+      'unique_code'
+   ];
    }
 
    protected $table = 'tb_siswa';
@@ -79,7 +80,7 @@ class SiswaModel extends Model
          ->findAll();
    }
 
-   public function createSiswa($nis, $nama, $idKelas, $jenisKelamin, $noHp)
+   public function createSiswa($nis, $nama, $idKelas, $jenisKelamin, $noHp, $keterangan = null)
    {
       return $this->save([
          'nis' => $nis,
@@ -87,11 +88,12 @@ class SiswaModel extends Model
          'id_kelas' => $idKelas,
          'jenis_kelamin' => $jenisKelamin,
          'no_hp' => $noHp,
+         'keterangan' => $keterangan,
          'unique_code' => generateToken()
       ]);
    }
 
-   public function updateSiswa($id, $nis, $nama, $idKelas, $jenisKelamin, $noHp)
+   public function updateSiswa($id, $nis, $nama, $idKelas, $jenisKelamin, $noHp, $keterangan = null)
    {
       return $this->save([
          $this->primaryKey => $id,
@@ -100,6 +102,7 @@ class SiswaModel extends Model
          'id_kelas' => $idKelas,
          'jenis_kelamin' => $jenisKelamin,
          'no_hp' => $noHp,
+         'keterangan' => $keterangan,
       ]);
    }
 

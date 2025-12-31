@@ -106,6 +106,14 @@
                         </div>
                      </div>
 
+                     <div class="form-group mt-5">
+                        <label for="keterangan">Keterangan</label>
+                        <input type="text" id="keterangan" name="keterangan" class="form-control <?= $validation->getError('keterangan') ? 'is-invalid' : ''; ?>" value="<?= old('keterangan') ?? $oldInput['keterangan'] ?? '' ?>">
+                        <div class="invalid-feedback">
+                           <?= $validation->getError('keterangan'); ?>
+                        </div>
+                     </div>
+
                      <button type="submit" class="btn btn-primary btn-block">Simpan</button>
                   </form>
 

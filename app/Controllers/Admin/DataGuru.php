@@ -27,7 +27,7 @@ class DataGuru extends BaseController
          ]
       ],
       'jk' => ['rules' => 'required', 'errors' => ['required' => 'Jenis kelamin wajib diisi']],
-      'no_hp' => 'required|numeric|max_length[20]|min_length[5]'
+      'no_hp' => 'permit_empty|numeric|max_length[20]|min_length[5]'
    ];
 
    public function __construct()

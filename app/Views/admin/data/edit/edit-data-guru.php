@@ -91,7 +91,7 @@
 
                      <div class="form-group mt-4">
                         <label for="hp">No HP</label>
-                        <input type="number" id="hp" name="no_hp" class="form-control <?= $validation->getError('no_hp') ? 'is-invalid' : ''; ?>" placeholder="08969xxx" value="<?= old('no_hp') ?? $oldInput['no_hp']  ?? $data['no_hp'] ?>" required>
+                        <input type="number" id="hp" name="no_hp" class="form-control <?= $validation->getError('no_hp') ? 'is-invalid' : ''; ?>" placeholder="08969xxx" value="<?= old('no_hp') ?? $oldInput['no_hp']  ?? $data['no_hp'] ?>">
                         <div class="invalid-feedback">
                            <?= $validation->getError('no_hp'); ?>
                         </div>
