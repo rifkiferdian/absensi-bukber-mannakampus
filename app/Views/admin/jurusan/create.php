@@ -7,14 +7,14 @@
         <?= view('admin/_messages'); ?>
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title"><b>Form Tambah Jurusan</b></h4>
+            <h4 class="card-title"><b>Form Tambah</b></h4>
           </div>
           <div class="card-body mx-5 my-3">
 
             <form action="<?= base_url('admin/jurusan/tambahJurusanPost'); ?>" method="post">
               <?= csrf_field() ?>
               <div class="form-group mt-4">
-                <label for="jurusan">Nama jurusan</label>
+                <label for="jurusan">Nama Agenda</label>
                 <input type="text" id="jurusan" class="form-control <?= invalidFeedback('jurusan') ? 'is-invalid' : ''; ?>" name="jurusan" placeholder="IPA, IPS" , value="<?= old('jurusan'); ?>" required>
                 <div class="invalid-feedback">
                   <?= invalidFeedback('jurusan'); ?>

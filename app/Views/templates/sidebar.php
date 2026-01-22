@@ -75,12 +75,12 @@ switch ($context) {
                <p>Generate QR Code</p>
             </a>
          </li>
-         <li class="nav-item <?= $context == 'laporan' ? 'active' : ''; ?>">
+         <!-- <li class="nav-item <?= $context == 'laporan' ? 'active' : ''; ?>">
             <a class="nav-link" href="<?= base_url('admin/laporan'); ?>">
                <i class="material-icons">print</i>
                <p>Generate Laporan</p>
             </a>
-         </li>
+         </li> -->
          <?php if (user()->toArray()['is_superadmin'] ?? '0' == '1') : ?>
             <li class="nav-item <?= $context == 'petugas' ? 'active' : ''; ?>">
                <a class="nav-link" href="<?= base_url('admin/petugas'); ?>">

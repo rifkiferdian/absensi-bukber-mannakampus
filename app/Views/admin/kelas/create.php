@@ -7,14 +7,14 @@
         <?= view('admin/_messages'); ?>
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title"><b>Form Tambah Kelas</b></h4>
+            <h4 class="card-title"><b>Form Tambah</b></h4>
           </div>
           <div class="card-body mx-5 my-3">
 
             <form action="<?= base_url('admin/kelas/tambahKelasPost'); ?>" method="post">
               <?= csrf_field() ?>
               <div class="form-group mt-4">
-                <label for="kelas">Kelas / Tingkat</label>
+                <label for="kelas">Waktu</label>
                 <input type="text" id="kelas" class="form-control <?= invalidFeedback('kelas') ? 'is-invalid' : ''; ?>" name="kelas" placeholder="'X', 'XI', '11'" , value="<?= old('kelas') ?>" required>
                 <div class="invalid-feedback">
                   <?= invalidFeedback('kelas'); ?>
@@ -22,9 +22,9 @@
               </div>
               <div class="row">
                 <div class="col-12">
-                  <label for="id_jurusan">Waktu</label>
+                  <label for="id_jurusan">Agenda</label>
                   <select class="custom-select <?= invalidFeedback('id_jurusan') ? 'is-invalid' : ''; ?>" id="id_jurusan" name="id_jurusan">
-                    <option value="">--Pilih Waktu--</option>
+                    <option value="">--Pilih Agenda--</option>
                     <?php foreach ($jurusan as $value) : ?>
                       <option value="<?= $value['id']; ?>" <?= old('id_jurusan') == $value['id'] ? 'selected' : ''; ?>>
                         <?= $value['jurusan']; ?>

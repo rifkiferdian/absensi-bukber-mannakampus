@@ -78,13 +78,13 @@
         width: 100%;
         border-collapse: collapse;
         margin-top: 6px;
-        font-size: 12px;
+        font-size: 10px;
      }
 
      table.report th,
      table.report td {
         border: 1px solid #d1d5db;
-        padding: 8px 10px;
+        padding: 5px 8px;
         vertical-align: middle;
      }
 
@@ -95,43 +95,31 @@
         text-align: left;
      }
 
-     .badge {
-        display: inline-block;
-        padding: 3px 10px;
-        border-radius: 999px;
-        font-weight: 700;
-        font-size: 11px;
-        border: 1px solid transparent;
-     }
-
      .status-hadir {
-        background: #dcfce7;
-        color: #166534;
-        border-color: #86efac;
+        color: #111827;
      }
 
      .status-sakit {
-        background: #fef3c7;
-        color: #92400e;
-        border-color: #fcd34d;
+        color: #854d0e;
      }
 
      .status-izin {
-        background: #e0f2fe;
-        color: #0b5394;
-        border-color: #bae6fd;
+        color: #38bdf8;
      }
 
      .status-tanpa {
-        background: #fee2e2;
-        color: #991b1b;
-        border-color: #fecaca;
+        color: #b91c1c;
      }
 
      .status-belum {
-        background: #e5e7eb;
         color: #4b5563;
-        border-color: #d1d5db;
+     }
+
+     .status-text {
+        font-weight: 700;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
      }
 
      .text-center {
@@ -155,70 +143,91 @@
 </head>
 
 <body class="A4">
-  <section class="sheet padding-10mm">
-     <div class="kop">
-        <div class="logo-wrap">
-           <img src="<?= getLogo(); ?>" style="width: 145px;" alt="Logo sekolah">
-        </div>
-        <div>
-           <h2><?= esc($generalSettings->school_name); ?></h2>
-           <p class="subtitle">Laporan Kehadiran <?= esc($kelasInfo['kelas'] ?? '-'); ?></p>
-           <p class="subtitle"><?= esc($kelasInfo['jurusan'] ?? '-'); ?></p>
-        </div>
-     </div>
+  <?php if (!empty($data)) : ?>
+     <?php $chunks = array_chunk($data, 40); ?>
+     <?php $no = 1; ?>
+     <?php foreach ($chunks as $chunk) : ?>
+        <section class="sheet padding-10mm">
+           <div class="kop">
+              <div class="logo-wrap">
+                 <img src="<?= getLogo(); ?>" style="width: 145px;" alt="Logo sekolah">
+              </div>
+              <div>
+                 <h2><?= esc($generalSettings->school_name); ?></h2>
+                 <p class="subtitle">Laporan Kehadiran <?= esc($kelasInfo['jurusan'] ?? '-'); ?></p>
+                 <p class="subtitle"><?= esc($kelasInfo['kelas'] ?? '-'); ?></p>
+              </div>
+           </div>
 
-     <div class="meta-row">
-        <!-- <div class="meta-block">
-           <span class="meta-label">Tanggal</span>
-           <span class="meta-value"><?= date('d M Y', strtotime($tanggal)); ?></span>
-        </div> -->
-        <!-- <div class="meta-block">
-           <span class="meta-label">Kelas</span>
-           <span class="meta-value"><?= esc($kelasInfo['kelas'] ?? ($data[0]['id_kelas'] ?? $idKelas)); ?></span>
-        </div>
-        <div class="meta-block">
-           <span class="meta-label">Jurusan</span>
-           <span class="meta-value"><?= esc($kelasInfo['jurusan'] ?? '-'); ?></span>
-        </div> -->
-     </div>
+           <div class="meta-row">
+              <!-- <div class="meta-block">
+                 <span class="meta-label">Tanggal</span>
+                 <span class="meta-value"><?= date('d M Y', strtotime($tanggal)); ?></span>
+              </div> -->
+              <!-- <div class="meta-block">
+                 <span class="meta-label">Kelas</span>
+                 <span class="meta-value"><?= esc($kelasInfo['kelas'] ?? ($data[0]['id_kelas'] ?? $idKelas)); ?></span>
+              </div>
+              <div class="meta-block">
+                 <span class="meta-label">Jurusan</span>
+                 <span class="meta-value"><?= esc($kelasInfo['jurusan'] ?? '-'); ?></span>
+              </div> -->
+           </div>
 
-     <?php if (!empty($data)) : ?>
-        <table class="report">
-           <thead>
-              <tr>
-                 <th>No</th>
-                 <th>Nama</th>
-                 <th>Keterangan Siswa</th>
-                 <th>Status Hadir</th>
-                 <th>Waktu Absen</th>
-                 <th>Keterangan Absen</th>
-              </tr>
-           </thead>
-           <tbody>
-              <?php $no = 1; ?>
-              <?php foreach ($data as $row) : ?>
-                 <?php $status = statusKehadiran($row['id_kehadiran'] ?? null); ?>
+           <table class="report">
+              <thead>
                  <tr>
-                    <td class="text-center"><?= $no++; ?></td>
-                    <td><?= esc($row['nama_siswa'] ?? '-'); ?></td>
-                    <td><?= !empty($row['keterangan_siswa']) ? esc($row['keterangan_siswa']) : '-'; ?></td>
-                    <td>
-                       <span class="badge <?= $status['class']; ?>">
-                          <?= $status['label']; ?>
-                       </span>
-                    </td>
-                    <td><?= formatWaktu($row['jam_masuk'] ?? null, $row['jam_keluar'] ?? null); ?></td>
-                    <td><?= !empty($row['keterangan']) ? esc($row['keterangan']) : '-'; ?></td>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Keterangan</th>
+                    <th>Status Hadir</th>
+                    <th>Waktu Absen</th>
+                    <th>Keterangan Absen</th>
                  </tr>
-              <?php endforeach; ?>
-           </tbody>
-        </table>
-     <?php else : ?>
+              </thead>
+              <tbody>
+                 <?php foreach ($chunk as $row) : ?>
+                    <?php $status = statusKehadiran($row['id_kehadiran'] ?? null); ?>
+                    <tr>
+                       <td class="text-center"><?= $no++; ?></td>
+                       <td><?= esc($row['nama_siswa'] ?? '-'); ?></td>
+                       <td><?= !empty($row['keterangan_siswa']) ? esc($row['keterangan_siswa']) : '-'; ?></td>
+                    <td class="status-text <?= $status['class']; ?>">
+                       <?= $status['label']; ?>
+                    </td>
+                       <td><?= formatWaktu($row['jam_masuk'] ?? null, $row['jam_keluar'] ?? null); ?></td>
+                       <td><?= !empty($row['keterangan']) ? esc($row['keterangan']) : '-'; ?></td>
+                    </tr>
+                 <?php endforeach; ?>
+              </tbody>
+           </table>
+        </section>
+     <?php endforeach; ?>
+  <?php else : ?>
+     <section class="sheet padding-10mm">
+        <div class="kop">
+           <div class="logo-wrap">
+              <img src="<?= getLogo(); ?>" style="width: 145px;" alt="Logo sekolah">
+           </div>
+           <div>
+              <h2><?= esc($generalSettings->school_name); ?></h2>
+              <p class="subtitle">Laporan Kehadiran <?= esc($kelasInfo['kelas'] ?? '-'); ?></p>
+              <p class="subtitle"><?= esc($kelasInfo['jurusan'] ?? '-'); ?></p>
+           </div>
+        </div>
+
+        <div class="meta-row">
+           <!-- <div class="meta-block">
+              <span class="meta-label">Tanggal</span>
+              <span class="meta-value"><?= date('d M Y', strtotime($tanggal)); ?></span>
+           </div> -->
+        </div>
+
         <div class="empty-state">
            Tidak ada data kehadiran pada tanggal ini.
         </div>
-     <?php endif; ?>
-  </section>
+     </section>
+  <?php endif; ?>
 
   <?php
   function statusKehadiran($kehadiran): array
