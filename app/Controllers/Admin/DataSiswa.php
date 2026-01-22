@@ -313,4 +313,9 @@ class DataSiswa extends BaseController
          return $response->download(FCPATH . 'assets/file/csv_guru_template.csv', null);
       }
    }
+
+   function generateQrMandiri()
+   {
+      return view('templates/self_generate_qr');
+   }
 }

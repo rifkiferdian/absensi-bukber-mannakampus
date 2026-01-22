@@ -462,6 +462,29 @@ class QRGenerator extends BaseController
       }
    }
 
+   public function downloadQrSiswaByNomor()
+   {
+      $nomorInduk = trim((string) $this->request->getVar('nomor_induk'));
+      if ($nomorInduk === '') {
+         session()->setFlashdata([
+            'msg' => 'NIP Pegawai wajib diisi',
+            'error' => true
+         ]);
+         return redirect()->to('/generate-qr');
+      }
+
+      $siswa = (new SiswaModel)->where('nis', $nomorInduk)->first();
+      if (!$siswa) {
+         session()->setFlashdata([
+            'msg' => 'NIP Pegawai tidak ditemukan',
+            'error' => true
+         ]);
+         return redirect()->to('/generate-qr');
+      }
+
+      return $this->downloadQrSiswaWithTemplate($siswa['id_siswa']);
+   }
+
    public function downloadAllQrSiswa()
    {
       $kelas = null;

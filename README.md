@@ -1,15 +1,15 @@
-# Aplikasi Absensi Agenda/Acara Manna Kampus (QR Code)
+# Aplikasi Absensi Buka Bersama Manna Kampus (QR Code)
 
 ![Preview](./screenshots/hero.png)
 
-Aplikasi ini digunakan untuk mencatat absensi agenda atau acara internal Manna Kampus menggunakan QR Code. Dibangun di atas CodeIgniter 4, sistem ini membantu tim HR/EO memantau kehadiran, mengirim notifikasi, dan menyiapkan laporan acara dengan cepat.
+Aplikasi ini digunakan untuk mencatat absensi acara Buka Bersama Manna Kampus menggunakan QR Code. Dibangun di atas CodeIgniter 4, sistem ini membantu panitia memantau kehadiran, mengirim notifikasi, dan menyiapkan laporan acara dengan cepat.
 
 > [Instalasi & Cara Penggunaan](#cara-penggunaan)
 
 ## Fitur Utama
 
 - **QR Code check-in/out.** Peserta/pegawai men-scan QR di pintu masuk/keluar, sistem langsung memvalidasi dan mencatat kehadiran.
-- **Manajemen agenda & acara.** Buat, ubah, dan kelola jadwal acara perusahaan Manna Kampus lengkap dengan lokasi dan waktu.
+- **Manajemen agenda Buka Bersama.** Buat, ubah, dan kelola jadwal acara Buka Bersama Manna Kampus lengkap dengan lokasi dan waktu.
 - **Dashboard admin & petugas.** Pantau kehadiran real time, status hadir/pulang, dan statistik tiap agenda.
 - **Notifikasi WhatsApp (opsional).** Kirim konfirmasi kehadiran atau pengingat melalui WhatsApp setelah scan berhasil.
 - **Generator & unduhan QR Code.** Cetak QR unik per peserta/undangan secara massal atau individual.

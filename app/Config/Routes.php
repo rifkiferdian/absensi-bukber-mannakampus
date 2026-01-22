@@ -43,7 +43,8 @@ $routes->group('scan', function (RouteCollection $routes) {
    $routes->post('cek', 'Scan::cekKode');
 });
 
-
+$routes->get('generate-qr', 'Admin\DataSiswa::generateQrMandiri');
+$routes->get('qr/siswa/download', 'Admin\QRGenerator::downloadQrSiswaByNomor');
 
 // Admin
 $routes->group('admin', function (RouteCollection $routes) {
