@@ -80,7 +80,8 @@ class PresensiSiswaModel extends Model implements PresensiInterface
             'left'
          )
          ->where('tb_siswa.id_kelas', $idKelas)
-         ->orderBy('tb_siswa.nama_siswa')
+         ->orderBy('tb_siswa.nis', 'ASC')
+         ->orderBy('tb_siswa.keterangan', 'ASC')
          ->findAll();
    }
 
