@@ -200,7 +200,7 @@ class QRGenerator extends BaseController
          return redirect()->back();
       }
 
-      $templatePath = FCPATH . 'assets/img/template-qr/template-qr.JPG';
+      $templatePath = FCPATH . 'assets/img/template-qr/template-qr-21.jpeg';
       $fontPath = FCPATH . 'assets/fonts/Arial.ttf';
       if (!file_exists($fontPath)) {
          $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
@@ -248,28 +248,28 @@ class QRGenerator extends BaseController
 
          // Tulis nama siswa di tengah dengan bayangan
          $text = $siswa['nama_siswa'];
-         $fontSize = 27;
+         $fontSize = 70;
          $angle = 0;
-         $textColor = imagecolorallocate($image, 0, 0, 0);
-         $shadowColor = imagecolorallocate($image, 160, 160, 160);
+         $textColor = imagecolorallocate($image, 255, 255, 255);
+         $shadowColor = imagecolorallocate($image, 0, 0, 0);
 
          $box = imagettfbbox($fontSize, $angle, $fontPath, $text);
          $textWidth = abs($box[4] - $box[0]);
          $textHeight = abs($box[5] - $box[1]);
 
          $xText = ($width / 2) - ($textWidth / 2);
-         $yText = ($height / 2) + ($textHeight / 2) + 270;
+         $yText = ($height / 2) + ($textHeight / 2) + 700;
 
          imagettftext($image, $fontSize, $angle, $xText + 2, $yText + 2, $shadowColor, $fontPath, $text);
          imagettftext($image, $fontSize, $angle, $xText, $yText, $textColor, $fontPath, $text);
 
          // Tempel QR di tengah template
-         $qrSize = 400;
+         $qrSize = 700;
          $qrW = imagesx($qr);
          $qrH = imagesy($qr);
 
          $xQr = ($width - $qrSize) / 2;
-         $yQr = ($height - $qrSize) / 2 - 80;
+         $yQr = ($height - $qrSize) / 2 + 140;
 
          imagecopyresampled(
             $image,
@@ -356,7 +356,7 @@ class QRGenerator extends BaseController
          return redirect()->back();
       }
 
-      $templatePath = FCPATH . 'assets/img/template-qr/template-qr.JPG';
+      $templatePath = FCPATH . 'assets/img/template-qr/template-qr-21.jpeg';
       $fontPath = FCPATH . 'assets/fonts/Arial.ttf';
       if (!file_exists($fontPath)) {
          $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
@@ -404,27 +404,27 @@ class QRGenerator extends BaseController
          $height = imagesy($image);
 
          $text = $guru['nama_guru'];
-         $fontSize = 27;
+         $fontSize = 70;
          $angle = 0;
-         $textColor = imagecolorallocate($image, 0, 0, 0);
-         $shadowColor = imagecolorallocate($image, 160, 160, 160);
+         $textColor = imagecolorallocate($image, 255, 255, 255);
+         $shadowColor = imagecolorallocate($image, 0, 0, 0);
 
          $box = imagettfbbox($fontSize, $angle, $fontPath, $text);
          $textWidth = abs($box[4] - $box[0]);
          $textHeight = abs($box[5] - $box[1]);
 
          $xText = ($width / 2) - ($textWidth / 2);
-         $yText = ($height / 2) + ($textHeight / 2) + 270;
+         $yText = ($height / 2) + ($textHeight / 2) + 700;
 
          imagettftext($image, $fontSize, $angle, $xText + 2, $yText + 2, $shadowColor, $fontPath, $text);
          imagettftext($image, $fontSize, $angle, $xText, $yText, $textColor, $fontPath, $text);
 
-         $qrSize = 400;
+         $qrSize = 700;
          $qrW = imagesx($qr);
          $qrH = imagesy($qr);
 
          $xQr = ($width - $qrSize) / 2;
-         $yQr = ($height - $qrSize) / 2 - 80;
+         $yQr = ($height - $qrSize) / 2 + 140;
 
          imagecopyresampled(
             $image,
@@ -526,7 +526,7 @@ class QRGenerator extends BaseController
 
    public function downloadAllQrSiswaWithTemplate()
    {
-      $templatePath = FCPATH . 'assets/img/template-qr/template-qr.JPG';
+      $templatePath = FCPATH . 'assets/img/template-qr/template-qr-21.jpeg';
       $fontPath = FCPATH . 'assets/fonts/Arial.ttf';
       if (!file_exists($fontPath)) {
          $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
@@ -629,7 +629,7 @@ class QRGenerator extends BaseController
 
    public function downloadAllQrGuruWithTemplate()
    {
-      $templatePath = FCPATH . 'assets/img/template-qr/template-qr.JPG';
+      $templatePath = FCPATH . 'assets/img/template-qr/template-qr-21.jpeg';
       $fontPath = FCPATH . 'assets/fonts/Arial.ttf';
       if (!file_exists($fontPath)) {
          $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
@@ -749,10 +749,10 @@ class QRGenerator extends BaseController
       $width = imagesx($image);
       $height = imagesy($image);
 
-      $fontSize = 27;
+      $fontSize = 70;
       $angle = 0;
-      $textColor = imagecolorallocate($image, 0, 0, 0);
-      $shadowColor = imagecolorallocate($image, 160, 160, 160);
+      $textColor = imagecolorallocate($image, 255, 255, 255);
+      $shadowColor = imagecolorallocate($image, 0, 0, 0);
 
       // echo '<pre>'.print_r($text,1).'</pre>'; die();
 
@@ -761,17 +761,17 @@ class QRGenerator extends BaseController
       $textHeight = abs($box[5] - $box[1]);
 
       $xText = ($width / 2) - ($textWidth / 2);
-      $yText = ($height / 2) + ($textHeight / 2) + 270;
+      $yText = ($height / 2) + ($textHeight / 2) + 700;
 
       imagettftext($image, $fontSize, $angle, $xText + 2, $yText + 2, $shadowColor, $fontPath, $text);
       imagettftext($image, $fontSize, $angle, $xText, $yText, $textColor, $fontPath, $text);
 
-      $qrSize = 400;
+      $qrSize = 700;
       $qrW = imagesx($qr);
       $qrH = imagesy($qr);
 
       $xQr = ($width - $qrSize) / 2;
-      $yQr = ($height - $qrSize) / 2 - 80;
+      $yQr = ($height - $qrSize) / 2 + 140;
 
       imagecopyresampled(
          $image,

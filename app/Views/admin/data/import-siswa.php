@@ -67,7 +67,7 @@
                                 <form action="<?= base_url('admin/siswa/downloadCSVFilePost'); ?>" method="post">
                                     <?= csrf_field(); ?>
                                     <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modalKelas">List Agenda</button>
-                                    <button class="btn btn-success btn-block" name="submit" value="csv_siswa_template">Download CSV Template</button>
+                                    <!-- <button class="btn btn-success btn-block" name="submit" value="csv_siswa_template">Download CSV Template</button> -->
                                     <button class="btn btn-success btn-block" name="submit" value="xlsx_siswa_template">Download Excel Template</button>
                                 </form>
                             </div>
