@@ -91,19 +91,20 @@
    var kelas = null;
    var jurusan = null;
 
-   getDataSiswa(kelas, jurusan);
+   getDataSiswa(kelas, jurusan, 1);
 
    function trig() {
-      getDataSiswa(kelas, jurusan);
+      getDataSiswa(kelas, jurusan, 1);
    }
 
-   function getDataSiswa(_kelas = null, _jurusan = null) {
+   function getDataSiswa(_kelas = null, _jurusan = null, _page = 1) {
       jQuery.ajax({
          url: "<?= base_url('/admin/siswa'); ?>",
          type: 'post',
          data: {
             'kelas': _kelas,
-            'jurusan': _jurusan
+            'jurusan': _jurusan,
+            'page_siswa': _page
          },
          success: function(response, status, xhr) {
             // console.log(status);
@@ -124,6 +125,23 @@
       $("#checkAll").click(function(e) {
          console.log(e);
          $('input:checkbox').not(this).prop('checked', this.checked);
+      });
+
+      $('#dataSiswa').on('click', '.pagination a', function(e) {
+         e.preventDefault();
+         var href = $(this).attr('href');
+         if (!href) {
+            return;
+         }
+         var page = 1;
+         try {
+            var url = new URL(href, window.location.origin);
+            page = url.searchParams.get('page_siswa') || 1;
+         } catch (err) {
+            var match = href.match(/[?&]page_siswa=(\d+)/);
+            page = match ? match[1] : 1;
+         }
+         getDataSiswa(kelas, jurusan, page);
       });
    });
 </script>

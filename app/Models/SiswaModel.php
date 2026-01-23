@@ -68,6 +68,31 @@ class SiswaModel extends Model
       return $query->orderBy('nama_siswa')->findAll();
    }
 
+   public function getAllSiswaWithKelasPaginated($kelas = null, $jurusan = null, $perPage = 50, $group = 'siswa')
+   {
+      $query = $this->join(
+         'tb_kelas',
+         'tb_kelas.id_kelas = tb_siswa.id_kelas',
+         'LEFT'
+      )->join(
+         'tb_jurusan',
+         'tb_kelas.id_jurusan = tb_jurusan.id',
+         'LEFT'
+      );
+
+      if (!empty($kelas) && !empty($jurusan)) {
+         $query = $this->where(['kelas' => $kelas, 'jurusan' => $jurusan]);
+      } else if (empty($kelas) && !empty($jurusan)) {
+         $query = $this->where(['jurusan' => $jurusan]);
+      } else if (!empty($kelas) && empty($jurusan)) {
+         $query = $this->where(['kelas' => $kelas]);
+      } else {
+         $query = $this;
+      }
+
+      return $query->orderBy('nama_siswa')->paginate($perPage, $group);
+   }
+
    public function getSiswaByKelas($id_kelas)
    {
       return $this->join(

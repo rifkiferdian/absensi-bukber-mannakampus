@@ -66,11 +66,12 @@ class DataSiswa extends BaseController
       $kelas = $this->request->getVar('kelas') ?? null;
       $jurusan = $this->request->getVar('jurusan') ?? null;
 
-      $result = $this->siswaModel->getAllSiswaWithKelas($kelas, $jurusan);
+      $result = $this->siswaModel->getAllSiswaWithKelasPaginated($kelas, $jurusan, 50, 'siswa');
 
       $data = [
          'data' => $result,
-         'empty' => empty($result)
+         'empty' => empty($result),
+         'pager' => $this->siswaModel->pager
       ];
 
       return view('admin/data/list-data-siswa', $data);

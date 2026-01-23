@@ -1,6 +1,6 @@
 <div class="card-body table-responsive">
    <?php if (!$empty) : ?>
-      <table class="table table-hover">
+      <table class="table table-hover table-sm table-compact-siswa">
          <thead class="text-primary">
             <th width="20"><input type="checkbox" class="checkbox-table" id="checkAll"></th>
             <th><b>No</b></th>
@@ -48,6 +48,11 @@
             endforeach; ?>
          </tbody>
       </table>
+      <?php if (isset($pager)) : ?>
+         <div class="d-flex justify-content-end mt-3">
+            <?= $pager->links('siswa', 'default_full'); ?>
+         </div>
+      <?php endif; ?>
    <?php else : ?>
       <div class="row">
          <div class="col">

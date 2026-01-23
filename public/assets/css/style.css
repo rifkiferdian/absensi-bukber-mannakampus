@@ -126,3 +126,13 @@
         transform: scale(1.0);
     }
 }
+
+.table-compact-siswa {
+    font-size: 12px;
+    line-height: 1.2;
+}
+
+.table-compact-siswa th,
+.table-compact-siswa td {
+    padding: 0.35rem 0.5rem;
+}
