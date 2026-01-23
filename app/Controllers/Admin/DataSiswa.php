@@ -311,7 +311,7 @@ class DataSiswa extends BaseController
       if ($submit == 'csv_siswa_template') {
          return $response->download(FCPATH . 'assets/file/csv_siswa_template.csv', null);
       } elseif ($submit == 'xlsx_siswa_template') {
-         return $response->download(FCPATH . 'assets/file/xlsx_siswa_template.xlsx', null);
+         return $response->download(FCPATH . 'assets/file/xlsx_tamu_template.xlsx', null);
       } elseif ($submit == 'csv_guru_template') {
          return $response->download(FCPATH . 'assets/file/csv_guru_template.csv', null);
       }

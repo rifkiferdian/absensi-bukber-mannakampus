@@ -27,9 +27,9 @@
                                                 <i class="material-icons">cloud_upload</i>
                                             </p>
                                             <h3 class="text-muted">Drag &amp; drop files here</h3>
-                                            <div class="btn btn-primary mb-5">
+                                            <div class="btn btn-primary mb-5 btn-file-upload">
                                                 <span>Open the file Browser</span>
-                                                <input type="file" title='Click to add Files' accept=".csv,.xls,.xlsx" />
+                                                <input type="file" title='Click to add Files' accept=".xls,.xlsx" />
                                             </div>
                                         </div>
                                     </div>
@@ -68,7 +68,7 @@
                                     <?= csrf_field(); ?>
                                     <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modalKelas">List Agenda</button>
                                     <!-- <button class="btn btn-success btn-block" name="submit" value="csv_siswa_template">Download CSV Template</button> -->
-                                    <button class="btn btn-success btn-block" name="submit" value="xlsx_siswa_template">Download Excel Template</button>
+                                    <button class="btn btn-success btn-block" name="submit" value="xlsx_tamu_template">Download Excel Template</button>
                                 </form>
                             </div>
                         </div>
@@ -93,8 +93,8 @@
                     <table class="table table-hover">
                         <thead class="text-primary">
                             <th><b>ID</b></th>
-                            <th><b>Agenda</b></th>
                             <th><b>Waktu</b></th>
+                            <th><b>Agenda</b></th>
                         </thead>
                         <tbody>
                             <?php

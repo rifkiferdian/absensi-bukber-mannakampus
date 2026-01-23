@@ -20,6 +20,10 @@
     cursor: pointer;
 }
 
+.dm-uploader .btn-file-upload input[type="file"] {
+    z-index: 3;
+}
+
 .btn-custom-tools {
     position: relative;
     color: #fff;

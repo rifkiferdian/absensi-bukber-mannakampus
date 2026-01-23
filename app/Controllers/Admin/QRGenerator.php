@@ -200,7 +200,7 @@ class QRGenerator extends BaseController
          return redirect()->back();
       }
 
-      $templatePath = FCPATH . 'assets/img/template-qr/template-qr-21.jpeg';
+      $templatePath = $this->getSiswaTemplatePath((string) $siswa['id_kelas']);
       $fontPath = FCPATH . 'assets/fonts/Arial.ttf';
       if (!file_exists($fontPath)) {
          $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
@@ -526,14 +526,13 @@ class QRGenerator extends BaseController
 
    public function downloadAllQrSiswaWithTemplate()
    {
-      $templatePath = FCPATH . 'assets/img/template-qr/template-qr-21.jpeg';
       $fontPath = FCPATH . 'assets/fonts/Arial.ttf';
       if (!file_exists($fontPath)) {
          $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
       }
-      if (!file_exists($templatePath) || !file_exists($fontPath)) {
+      if (!file_exists($fontPath)) {
          session()->setFlashdata([
-            'msg' => 'Template QR atau font tidak ditemukan',
+            'msg' => 'Font tidak ditemukan',
             'error' => true
          ]);
          return redirect()->back();
@@ -565,6 +564,10 @@ class QRGenerator extends BaseController
       try {
          $qrDir = self::UPLOADS_PATH . 'qr-siswa/' . ($kelasSlug ? "{$kelasSlug}/" : '');
          $outputDir = self::UPLOADS_PATH . 'qr-siswa-template/' . ($kelasSlug ? "{$kelasSlug}/" : '');
+         $fixedTemplatePath = $idKelas ? $this->getSiswaTemplatePath((string) $idKelas) : null;
+         if ($fixedTemplatePath && !file_exists($fixedTemplatePath)) {
+            throw new \RuntimeException('Template QR tidak ditemukan');
+         }
          if (!file_exists($qrDir)) {
             mkdir($qrDir, recursive: true);
          }
@@ -584,6 +587,10 @@ class QRGenerator extends BaseController
             // echo '<pre>'.print_r($siswa['nama_siswa'],1).'</pre>'; die();
 
             $fileName = url_title($siswa['nama_siswa'], lowercase: true) . '.jpg';
+            $templatePath = $fixedTemplatePath ?? $this->getSiswaTemplatePath((string) $siswa['id_kelas']);
+            if (!file_exists($templatePath)) {
+               throw new \RuntimeException('Template QR tidak ditemukan');
+            }
             $this->createTemplateImage($templatePath, $fontPath, $qrPath, $siswa['nama_siswa'], $outputDir . $fileName);
          }
 
@@ -728,6 +735,17 @@ class QRGenerator extends BaseController
       } else {
          return false;
       }
+   }
+
+   private function getSiswaTemplatePath(?string $idKelas): string
+   {
+      $templateMap = [
+         '21' => 'template-qr-21.jpeg',
+         '23' => 'template-qr-23.jpeg',
+      ];
+      $templateFile = $templateMap[$idKelas ?? ''] ?? 'template-qr-21.jpeg';
+
+      return FCPATH . 'assets/img/template-qr/' . $templateFile;
    }
 
    private function createTemplateImage(string $templatePath, string $fontPath, string $qrPath, string $text, string $outputPath): void
