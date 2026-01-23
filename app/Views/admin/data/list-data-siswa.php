@@ -7,8 +7,8 @@
             <th><b>NIS</b></th>
             <th><b>Nama Tamu</b></th>
             <th><b>Jenis Kelamin</b></th>
-            <th><b>Agenda</b></th>
             <th><b>Waktu</b></th>
+            <th><b>Agenda</b></th>
             <!-- <th><b>No HP</b></th> -->
             <th><b>Keterangan</b></th>
             <th width="1%"><b>Aksi</b></th>

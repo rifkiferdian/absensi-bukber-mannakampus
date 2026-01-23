@@ -29,7 +29,7 @@
                                             <h3 class="text-muted">Drag &amp; drop files here</h3>
                                             <div class="btn btn-primary mb-5">
                                                 <span>Open the file Browser</span>
-                                                <input type="file" title='Click to add Files' />
+                                                <input type="file" title='Click to add Files' accept=".csv,.xls,.xlsx" />
                                             </div>
                                         </div>
                                     </div>
@@ -61,13 +61,14 @@
                         <div class="card">
                             <div class="card-header card-header-tabs card-header-primary">
                                 <h4 class="card-title"><b>Help Documents</b></h4>
-                                <p class="card-category">documents to generate your CSV file</p>
+                                <p class="card-category">documents to generate your CSV/Excel file</p>
                             </div>
                             <div class="card-body">
                                 <form action="<?= base_url('admin/siswa/downloadCSVFilePost'); ?>" method="post">
                                     <?= csrf_field(); ?>
                                     <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#modalKelas">List Agenda</button>
                                     <button class="btn btn-success btn-block" name="submit" value="csv_siswa_template">Download CSV Template</button>
+                                    <button class="btn btn-success btn-block" name="submit" value="xlsx_siswa_template">Download Excel Template</button>
                                 </form>
                             </div>
                         </div>
@@ -118,7 +119,7 @@
         $('#drag-and-drop-zone').dmUploader({
             url: '<?= base_url("admin/siswa/generateCSVObjectPost"); ?>',
             multiple: false,
-            extFilter: ["csv"],
+            extFilter: ["csv", "xls", "xlsx"],
             extraData: function(id) {
                 return {
                     '<?= csrf_token() ?>': '<?= csrf_hash(); ?>'
@@ -155,7 +156,7 @@
                     }
 
                 } catch (e) {
-                    alert("Invalid CSV file! Make sure there are no double quotes in your content. Double quotes can brake the CSV structure.");
+                    alert("Invalid file! Make sure the format matches the template (CSV/XLS/XLSX).");
                 }
             }
         });
@@ -176,7 +177,8 @@
                     if (objSub.result == 1) {
                         $("#csv_uploaded_files").prepend('<li class="list-group-item list-group-item-success">&nbsp;' + objSub.index + '.&nbsp;' + objSub.siswa.nis + '.&nbsp; - ' + objSub.siswa.nama_siswa +'</li>');
                     } else {
-                        $("#csv_uploaded_files").prepend('<li class="list-group-item list-group-item-danger">&nbsp;' + objSub.index + '.</li>');
+                        var errorText = objSub.error ? ' - ' + objSub.error : '';
+                        $("#csv_uploaded_files").prepend('<li class="list-group-item list-group-item-danger">&nbsp;' + objSub.index + '.' + errorText + '</li>');
                     }
                     if (objSub.index == numberOfItems) {
                         $("#csv_upload_spinner .text-csv-importing").hide();

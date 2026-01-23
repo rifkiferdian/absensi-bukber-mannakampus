@@ -18,7 +18,7 @@
                <i class="material-icons mr-2">add</i> Tambah data Tamu
             </a>
             <a class="btn btn-primary ml-3 pl-3 py-3" href="<?= base_url('admin/siswa/bulk'); ?>">
-               <i class="material-icons mr-2">add</i> Import CSV
+               <i class="material-icons mr-2">add</i> Import CSV/Excel
             </a>
             <button class="btn btn-danger ml-3 pl-3 py-3 btn-table-delete" onclick="deleteSelectedSiswa('Data yang sudah dihapus tidak bisa kembalikan');"><i class="material-icons mr-2">delete_forever</i>Bulk Delete</button>
             <div class="card">

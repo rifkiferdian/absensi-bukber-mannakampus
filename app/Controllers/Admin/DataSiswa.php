@@ -262,7 +262,7 @@ class DataSiswa extends BaseController
       }
       $file = $uploadModel->uploadCSVFile('file');
       if (!empty($file) && !empty($file['path'])) {
-         $obj = $this->siswaModel->generateCSVObject($file['path']);
+         $obj = $this->siswaModel->generateSpreadsheetObject($file['path'], $file['ext'] ?? '');
          if (!empty($obj)) {
             $data = [
                'result' => 1,
@@ -284,7 +284,7 @@ class DataSiswa extends BaseController
       $txtFileName = inputPost('txtFileName');
       $index = inputPost('index');
       $siswa = $this->siswaModel->importCSVItem($txtFileName, $index);
-      if (!empty($siswa)) {
+      if (!empty($siswa) && empty($siswa['error'])) {
          $data = [
             'result' => 1,
             'siswa' => $siswa,
@@ -294,7 +294,8 @@ class DataSiswa extends BaseController
       } else {
          $data = [
             'result' => 0,
-            'index' => $index
+            'index' => $index,
+            'error' => $siswa['error'] ?? ''
          ];
          echo json_encode($data);
       }
@@ -309,6 +310,8 @@ class DataSiswa extends BaseController
       $response = \Config\Services::response();
       if ($submit == 'csv_siswa_template') {
          return $response->download(FCPATH . 'assets/file/csv_siswa_template.csv', null);
+      } elseif ($submit == 'xlsx_siswa_template') {
+         return $response->download(FCPATH . 'assets/file/xlsx_siswa_template.xlsx', null);
       } elseif ($submit == 'csv_guru_template') {
          return $response->download(FCPATH . 'assets/file/csv_guru_template.csv', null);
       }
