@@ -248,7 +248,8 @@ class QRGenerator extends BaseController
 
          // Tulis nama siswa di tengah dengan bayangan
          $text = $siswa['nama_siswa'];
-         $fontSize = 70;
+         $layout = $this->getTemplateLayout($templatePath);
+         $fontSize = $layout['fontSize'];
          $angle = 0;
          $textColor = imagecolorallocate($image, 255, 255, 255);
          $shadowColor = imagecolorallocate($image, 0, 0, 0);
@@ -258,18 +259,18 @@ class QRGenerator extends BaseController
          $textHeight = abs($box[5] - $box[1]);
 
          $xText = ($width / 2) - ($textWidth / 2);
-         $yText = ($height / 2) + ($textHeight / 2) + 700;
+         $yText = ($height / 2) + ($textHeight / 2) + $layout['textOffsetY'];
 
          imagettftext($image, $fontSize, $angle, $xText + 2, $yText + 2, $shadowColor, $fontPath, $text);
          imagettftext($image, $fontSize, $angle, $xText, $yText, $textColor, $fontPath, $text);
 
          // Tempel QR di tengah template
-         $qrSize = 700;
+         $qrSize = $layout['qrSize'];
          $qrW = imagesx($qr);
          $qrH = imagesy($qr);
 
          $xQr = ($width - $qrSize) / 2;
-         $yQr = ($height - $qrSize) / 2 + 140;
+         $yQr = ($height - $qrSize) / 2 + $layout['qrOffsetY'];
 
          imagecopyresampled(
             $image,
@@ -404,7 +405,8 @@ class QRGenerator extends BaseController
          $height = imagesy($image);
 
          $text = $guru['nama_guru'];
-         $fontSize = 70;
+         $layout = $this->getTemplateLayout($templatePath);
+         $fontSize = $layout['fontSize'];
          $angle = 0;
          $textColor = imagecolorallocate($image, 255, 255, 255);
          $shadowColor = imagecolorallocate($image, 0, 0, 0);
@@ -414,17 +416,17 @@ class QRGenerator extends BaseController
          $textHeight = abs($box[5] - $box[1]);
 
          $xText = ($width / 2) - ($textWidth / 2);
-         $yText = ($height / 2) + ($textHeight / 2) + 700;
+         $yText = ($height / 2) + ($textHeight / 2) + $layout['textOffsetY'];
 
          imagettftext($image, $fontSize, $angle, $xText + 2, $yText + 2, $shadowColor, $fontPath, $text);
          imagettftext($image, $fontSize, $angle, $xText, $yText, $textColor, $fontPath, $text);
 
-         $qrSize = 700;
+         $qrSize = $layout['qrSize'];
          $qrW = imagesx($qr);
          $qrH = imagesy($qr);
 
          $xQr = ($width - $qrSize) / 2;
-         $yQr = ($height - $qrSize) / 2 + 140;
+         $yQr = ($height - $qrSize) / 2 + $layout['qrOffsetY'];
 
          imagecopyresampled(
             $image,
@@ -767,7 +769,8 @@ class QRGenerator extends BaseController
       $width = imagesx($image);
       $height = imagesy($image);
 
-      $fontSize = 70;
+      $layout = $this->getTemplateLayout($templatePath);
+      $fontSize = $layout['fontSize'];
       $angle = 0;
       $textColor = imagecolorallocate($image, 255, 255, 255);
       $shadowColor = imagecolorallocate($image, 0, 0, 0);
@@ -779,17 +782,17 @@ class QRGenerator extends BaseController
       $textHeight = abs($box[5] - $box[1]);
 
       $xText = ($width / 2) - ($textWidth / 2);
-      $yText = ($height / 2) + ($textHeight / 2) + 700;
+      $yText = ($height / 2) + ($textHeight / 2) + $layout['textOffsetY'];
 
       imagettftext($image, $fontSize, $angle, $xText + 2, $yText + 2, $shadowColor, $fontPath, $text);
       imagettftext($image, $fontSize, $angle, $xText, $yText, $textColor, $fontPath, $text);
 
-      $qrSize = 700;
+      $qrSize = $layout['qrSize'];
       $qrW = imagesx($qr);
       $qrH = imagesy($qr);
 
       $xQr = ($width - $qrSize) / 2;
-      $yQr = ($height - $qrSize) / 2 + 140;
+      $yQr = ($height - $qrSize) / 2 + $layout['qrOffsetY'];
 
       imagecopyresampled(
          $image,
@@ -807,5 +810,17 @@ class QRGenerator extends BaseController
       imagejpeg($image, $outputPath, 90);
       imagedestroy($image);
       imagedestroy($qr);
+   }
+
+   private function getTemplateLayout(string $templatePath): array
+   {
+      $isTemplate21 = basename($templatePath) === 'template-qr-21.jpeg';
+
+      return [
+         'fontSize' => $isTemplate21 ? 45 : 65,
+         'qrSize' => $isTemplate21 ? 600 : 700,
+         'textOffsetY' => $isTemplate21 ? 550 : 700,
+         'qrOffsetY' => $isTemplate21 ? 120 : 140,
+      ];
    }
 }
