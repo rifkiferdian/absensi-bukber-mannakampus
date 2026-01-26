@@ -71,7 +71,7 @@ class DataGuru extends BaseController
    {
       $data = [
          'ctx' => 'guru',
-         'title' => 'Tambah Data Guru',
+         'title' => 'Tambah Data',
          'kelas' => $this->kelasModel->getDataKelas()
       ];
 
@@ -84,7 +84,7 @@ class DataGuru extends BaseController
       if (!$this->validate($this->guruValidationRules)) {
          $data = [
             'ctx' => 'guru',
-            'title' => 'Tambah Data Guru',
+            'title' => 'Tambah Data',
             'kelas' => $this->kelasModel->getDataKelas(),
             'validation' => $this->validator,
             'oldInput' => $this->request->getVar()

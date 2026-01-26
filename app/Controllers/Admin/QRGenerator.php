@@ -357,11 +357,12 @@ class QRGenerator extends BaseController
          return redirect()->back();
       }
 
-      $templatePath = FCPATH . 'assets/img/template-qr/template-qr-21.jpeg';
       $fontPath = FCPATH . 'assets/fonts/Arial.ttf';
       if (!file_exists($fontPath)) {
          $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
       }
+
+      $templatePath = $this->getSiswaTemplatePath((string) $guru['id_kelas']);
 
       if (!file_exists($templatePath) || !file_exists($fontPath)) {
          session()->setFlashdata([
@@ -447,7 +448,7 @@ class QRGenerator extends BaseController
          imagedestroy($qr);
          $data = ob_get_clean();
 
-         $downloadName = 'qr-panitia-' . url_title($guru['nama_guru'], lowercase: true) . '.jpg';
+         $downloadName = 'qr-' . url_title($guru['nama_guru'], lowercase: true) . '.jpg';
 
          return $this->response
             ->setHeader('Content-Type', 'image/jpeg')
@@ -638,14 +639,13 @@ class QRGenerator extends BaseController
 
    public function downloadAllQrGuruWithTemplate()
    {
-      $templatePath = FCPATH . 'assets/img/template-qr/template-qr-21.jpeg';
       $fontPath = FCPATH . 'assets/fonts/Arial.ttf';
       if (!file_exists($fontPath)) {
          $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
       }
-      if (!file_exists($templatePath) || !file_exists($fontPath)) {
+      if (!file_exists($fontPath)) {
          session()->setFlashdata([
-            'msg' => 'Template QR atau font tidak ditemukan',
+            'msg' => 'Font tidak ditemukan',
             'error' => true
          ]);
          return redirect()->back();
@@ -683,6 +683,10 @@ class QRGenerator extends BaseController
             );
 
             $fileName = url_title($guru['nama_guru'], lowercase: true) . '.jpg';
+            $templatePath = $this->getSiswaTemplatePath((string) $guru['id_kelas']);
+            if (!file_exists($templatePath)) {
+               throw new \RuntimeException('Template QR tidak ditemukan');
+            }
             $this->createTemplateImage($templatePath, $fontPath, $qrPath, $guru['nama_guru'], $outputDir . $fileName);
          }
 
