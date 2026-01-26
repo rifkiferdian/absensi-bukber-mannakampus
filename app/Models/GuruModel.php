@@ -28,7 +28,11 @@ class GuruModel extends Model
 
    public function getAllGuru()
    {
-      return $this->orderBy('nama_guru')->findAll();
+      return $this->select('tb_guru.*, tb_kelas.kelas, tb_jurusan.jurusan')
+         ->join('tb_kelas', 'tb_kelas.id_kelas = tb_guru.id_kelas', 'left')
+         ->join('tb_jurusan', 'tb_kelas.id_jurusan = tb_jurusan.id', 'left')
+         ->orderBy('nama_guru')
+         ->findAll();
    }
 
    public function getGuruById($id)
