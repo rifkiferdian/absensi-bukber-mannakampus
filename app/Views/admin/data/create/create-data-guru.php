@@ -42,6 +42,23 @@
                         </div>
                      </div>
 
+                     <div class="form-group mt-4">
+                        <label for="id_kelas">Agenda</label>
+                        <select id="id_kelas" name="id_kelas" class="form-control <?= $validation->getError('id_kelas') ? 'is-invalid' : ''; ?>">
+                           <option value="">-- Pilih Agenda --</option>
+                           <?php
+                           $selectedKelas = old('id_kelas') ?? $oldInput['id_kelas'] ?? '';
+                           foreach ($kelas as $value) : ?>
+                              <option value="<?= $value['id_kelas']; ?>" <?= (string) $selectedKelas === (string) $value['id_kelas'] ? 'selected' : ''; ?>>
+                                 <?= $value['kelas']; ?> - <?= $value['jurusan']; ?>
+                              </option>
+                           <?php endforeach; ?>
+                        </select>
+                        <div class="invalid-feedback">
+                           <?= $validation->getError('id_kelas'); ?>
+                        </div>
+                     </div>
+
                      <div class="form-group mt-2">
                         <label for="jk">Jenis Kelamin</label>
                         <?php

@@ -108,6 +108,13 @@ $routes->group('admin', function (RouteCollection $routes) {
    $routes->post('guru/edit', 'Admin\DataGuru::updateGuru');
    // admin hapus data guru
    $routes->delete('guru/delete/(:any)', 'Admin\DataGuru::delete/$1');
+   $routes->get('guru/bulk', 'Admin\DataGuru::bulkPostGuru');
+
+   $routes->group('guru', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+      $routes->post('downloadCSVFilePost', 'DataGuru::downloadCSVFilePost');
+      $routes->post('generateCSVObjectPost', 'DataGuru::generateCSVObjectPost');
+      $routes->post('importCSVItemPost', 'DataGuru::importCSVItemPost');
+   });
 
 
    // admin lihat data absen siswa

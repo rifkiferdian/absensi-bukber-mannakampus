@@ -14,6 +14,12 @@
                   </div>
                </div>
             <?php endif; ?>
+            <a class="btn btn-primary ml-3 pl-3 py-3" href="<?= base_url('admin/guru/create'); ?>">
+               <i class="material-icons mr-2">add</i> Tambah data Panitia
+            </a>
+            <a class="btn btn-primary ml-3 pl-3 py-3" href="<?= base_url('admin/guru/bulk'); ?>">
+               <i class="material-icons mr-2">add</i> Import CSV/Excel
+            </a>
             <div class="row">
                <div class="col-12 col-xl-12">
                   <div class="card">
