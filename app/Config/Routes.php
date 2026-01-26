@@ -45,6 +45,10 @@ $routes->group('scan', function (RouteCollection $routes) {
 
 $routes->get('generate-qr', 'Admin\DataSiswa::generateQrMandiri');
 $routes->get('qr/siswa/download', 'Admin\QRGenerator::downloadQrSiswaByNomor');
+$routes->get('qr/guru/(:any)/download-template', 'Admin\\QRGenerator::downloadQrGuruWithTemplate/$1');
+$routes->get('qr/guru/download-template', 'Admin\\QRGenerator::downloadAllQrGuruWithTemplate');
+
+$routes->get('data-guru-public', 'Admin\DataGuru::dataQrGuruPublic');
 
 // Admin
 $routes->group('admin', function (RouteCollection $routes) {

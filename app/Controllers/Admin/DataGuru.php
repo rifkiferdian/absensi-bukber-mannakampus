@@ -48,7 +48,7 @@ class DataGuru extends BaseController
    public function index()
    {
       $data = [
-         'title' => 'Data Panitia',
+         'title' => 'Data Non Staff MK',
          'ctx' => 'guru',
       ];
 
@@ -268,5 +268,12 @@ class DataGuru extends BaseController
       } elseif ($submit == 'csv_guru_template') {
          return $response->download(FCPATH . 'assets/file/csv_guru_template.csv', null);
       }
+   }
+
+   function dataQrGuruPublic()
+   {
+      $data['title'] = 'Data Guru';
+      $data['guru'] = $this->guruModel->getAllGuru();
+      return view('/templates/data-guru-public', $data);
    }
 }

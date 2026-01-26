@@ -3,13 +3,13 @@
       <table class="table table-hover">
          <thead class="text-success">
             <th><b>No</b></th>
-            <th><b>NUPTK</b></th>
+            <th><b>ID</b></th>
             <th><b>Nama</b></th>
             <th><b>Jenis Kelamin</b></th>
             <th><b>Kelas</b></th>
             <th><b>Jurusan</b></th>
             <th><b>No HP</b></th>
-            <th><b>Alamat</b></th>
+            <th><b>Keterangan</b></th>
             <th width="1%"><b>Aksi</b></th>
          </thead>
          <tbody>

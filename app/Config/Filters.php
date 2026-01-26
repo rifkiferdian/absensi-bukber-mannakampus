@@ -80,7 +80,19 @@ class Filters extends BaseFilters
     public array $globals = [
         'before' => [
             'honeypot',
-            'login'
+            'login' => [
+                'except' => [
+                    'generate-qr',
+                    'qr/siswa/download',
+                    'qr/guru/*/download-template',
+                    'qr/guru/download-template',
+                    'data-guru-public',
+                    'admin/qr/guru',
+                    'admin/qr/guru/*',
+                    'admin/qr/guru/*/download-template',
+                    'admin/qr/guru/download-template',
+                ],
+            ],
             // 'csrf',
             // 'invalidchars',
         ],
@@ -122,6 +134,14 @@ class Filters extends BaseFilters
                 'admin/*',
                 'register/',
             ]
-        ]
+            ,
+            'except' => [
+                'data-guru-public',
+                'admin/qr/guru',
+                'admin/qr/guru/*',
+                'admin/qr/guru/*/download-template',
+                'admin/qr/guru/download-template',
+            ],
+        ],
     ];
 }
