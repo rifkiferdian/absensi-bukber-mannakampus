@@ -50,6 +50,7 @@ class DataGuru extends BaseController
       $data = [
          'title' => 'Data Non Staff MK',
          'ctx' => 'guru',
+         'kelas' => $this->kelasModel->getDataKelas(),
       ];
 
       return view('admin/data/data-guru', $data);
@@ -57,7 +58,8 @@ class DataGuru extends BaseController
 
    public function ambilDataGuru()
    {
-      $result = $this->guruModel->getAllGuru();
+      $kelas = $this->request->getVar('kelas') ?? null;
+      $result = $this->guruModel->getAllGuru($kelas);
 
       $data = [
          'data' => $result,

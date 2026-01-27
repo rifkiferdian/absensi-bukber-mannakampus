@@ -26,13 +26,17 @@ class GuruModel extends Model
       return $this->where(['unique_code' => $unique_code])->first();
    }
 
-   public function getAllGuru()
+   public function getAllGuru($kelas = null)
    {
-      return $this->select('tb_guru.*, tb_kelas.kelas, tb_jurusan.jurusan')
+      $query = $this->select('tb_guru.*, tb_kelas.kelas, tb_jurusan.jurusan')
          ->join('tb_kelas', 'tb_kelas.id_kelas = tb_guru.id_kelas', 'left')
-         ->join('tb_jurusan', 'tb_kelas.id_jurusan = tb_jurusan.id', 'left')
-         ->orderBy('nama_guru')
-         ->findAll();
+         ->join('tb_jurusan', 'tb_kelas.id_jurusan = tb_jurusan.id', 'left');
+
+      if (!empty($kelas)) {
+         $query = $query->where('tb_kelas.kelas', $kelas);
+      }
+
+      return $query->orderBy('nama_guru')->findAll();
    }
 
    public function getGuruById($id)

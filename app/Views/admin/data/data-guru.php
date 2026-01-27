@@ -26,9 +26,35 @@
                      <div class="card-header card-header-tabs card-header-success">
                         <div class="nav-tabs-navigation">
                            <div class="row">
-                              <div class="col-md-4 col-lg-5">
+                              <div class="col-md-3 col-lg-3">
                                  <h4 class="card-title"><b>Data Non Staff MK</b></h4>
                                  <p class="card-category">Angkatan <?= $generalSettings->school_year; ?></p>
+                              </div>
+                              <div class="col-md-6">
+                                 <div class="nav-tabs-wrapper">
+                                    <span class="nav-tabs-title">Agenda:</span>
+                                    <ul class="nav nav-tabs" data-tabs="tabs">
+                                       <li class="nav-item">
+                                          <a class="nav-link active" onclick="kelas = null; trig()" href="#" data-toggle="tab">
+                                             <i class="material-icons">check</i> Semua
+                                             <div class="ripple-container"></div>
+                                          </a>
+                                       </li>
+                                       <?php
+                                       $tempKelas = [];
+                                       foreach ($kelas as $value) : ?>
+                                          <?php if (!in_array($value['kelas'], $tempKelas)) : ?>
+                                             <li class="nav-item">
+                                                <a class="nav-link" onclick="kelas = '<?= $value['kelas']; ?>'; trig()" href="#" data-toggle="tab">
+                                                   <i class="material-icons">school</i> <?= $value['kelas']; ?>
+                                                   <div class="ripple-container"></div>
+                                                </a>
+                                             </li>
+                                             <?php array_push($tempKelas, $value['kelas']) ?>
+                                          <?php endif; ?>
+                                       <?php endforeach; ?>
+                                    </ul>
+                                 </div>
                               </div>
                               <div class="ml-md-auto col-auto row">
                                  <div class="col-12 col-sm-auto nav nav-tabs">
@@ -41,7 +67,7 @@
                                  </div>
                                  <div class="col-12 col-sm-auto nav nav-tabs">
                                     <div class="nav-item">
-                                       <a class="nav-link" id="refreshBtn" onclick="getDataGuru()" href="#" data-toggle="tab">
+                                       <a class="nav-link" id="refreshBtn" onclick="getDataGuru(kelas)" href="#" data-toggle="tab">
                                           <i class="material-icons">refresh</i> Refresh
                                           <div class="ripple-container"></div>
                                        </a>
@@ -63,13 +89,21 @@
    </div>
 </div>
 <script>
-   getDataGuru();
+   var kelas = null;
 
-   function getDataGuru() {
+   getDataGuru(kelas);
+
+   function trig() {
+      getDataGuru(kelas);
+   }
+
+   function getDataGuru(_kelas = null) {
       jQuery.ajax({
          url: "<?= base_url('/admin/guru'); ?>",
          type: 'post',
-         data: {},
+         data: {
+            'kelas': _kelas
+         },
          success: function(response, status, xhr) {
             // console.log(status);
             $('#dataGuru').html(response);
