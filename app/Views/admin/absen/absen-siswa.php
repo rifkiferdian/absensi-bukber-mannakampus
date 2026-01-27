@@ -38,6 +38,20 @@
                            <input class="form-control" type="date" name="tangal" id="tanggal" value="<?= date('Y-m-d'); ?>" onchange="onDateChange()">
                         </div>
                      </div>
+                     <div class="col-md-4">
+                        <div class="pt-3 pl-3 pb-2">
+                           <h4><b>Filter kehadiran</b></h4>
+                           <select class="form-control" id="filterKehadiran" onchange="onDateChange()">
+                              <option value="all">Semua kehadiran</option>
+                              <?php foreach (($listKehadiran ?? []) as $kehadiran) : ?>
+                                 <option value="<?= $kehadiran['id_kehadiran']; ?>">
+                                    <?= $kehadiran['kehadiran']; ?>
+                                 </option>
+                              <?php endforeach; ?>
+                              <option value="5">Belum tersedia</option>
+                           </select>
+                        </div>
+                     </div>
                   </div>
                </div>
             </div>
@@ -82,6 +96,7 @@
 
    function getSiswa(idKelas, kelas) {
       var tanggal = $('#tanggal').val();
+      var idKehadiran = $('#filterKehadiran').val();
 
       updateBtn(idKelas);
 
@@ -91,7 +106,8 @@
          data: {
             'kelas': kelas,
             'id_kelas': idKelas,
-            'tanggal': tanggal
+            'tanggal': tanggal,
+            'id_kehadiran': idKehadiran
          },
          success: function(response, status, xhr) {
             // console.log(status);

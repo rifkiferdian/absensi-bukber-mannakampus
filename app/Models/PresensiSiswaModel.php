@@ -63,11 +63,11 @@ class PresensiSiswaModel extends Model implements PresensiInterface
       return $this->where([$this->primaryKey => $idPresensi])->first();
    }
 
-   public function getPresensiByKelasTanggal($idKelas, $tanggal)
+   public function getPresensiByKelasTanggal($idKelas, $tanggal, $idKehadiran = null, bool $lewat = false)
    {
       $escapedTanggal = $this->db->escape($tanggal);
 
-      return $this->setTable('tb_siswa')
+      $builder = $this->setTable('tb_siswa')
          ->select(
             'tb_siswa.id_siswa, tb_siswa.nis, tb_siswa.nama_siswa, tb_siswa.id_kelas, tb_siswa.jenis_kelamin, ' .
                'tb_siswa.no_hp, tb_siswa.keterangan AS keterangan_siswa, tb_siswa.unique_code, ' .
@@ -79,7 +79,24 @@ class PresensiSiswaModel extends Model implements PresensiInterface
             "tb_siswa.id_siswa = tb_presensi_siswa.id_siswa_presensi AND tb_presensi_siswa.tanggal = $escapedTanggal",
             'left'
          )
-         ->where('tb_siswa.id_kelas', $idKelas)
+         ->where('tb_siswa.id_kelas', $idKelas);
+
+      if (!empty($idKehadiran) && $idKehadiran !== 'all') {
+         if ((string) $idKehadiran === '5') {
+            $builder->groupStart()
+               ->where('tb_presensi_siswa.id_presensi', null)
+               ->groupEnd();
+         } elseif ((string) $idKehadiran === '4' && !$lewat) {
+            $builder->groupStart()
+               ->where('tb_presensi_siswa.id_kehadiran', 4)
+               ->orWhere('tb_presensi_siswa.id_presensi', null)
+               ->groupEnd();
+         } else {
+            $builder->where('tb_presensi_siswa.id_kehadiran', $idKehadiran);
+         }
+      }
+
+      return $builder
          ->orderBy('tb_siswa.nis', 'ASC')
          ->orderBy('tb_siswa.keterangan', 'ASC')
          ->findAll();

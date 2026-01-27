@@ -43,7 +43,8 @@ class DataAbsenSiswa extends BaseController
       $data = [
          'title' => 'Data Absen',
          'ctx' => 'absen-siswa',
-         'kelas' => $kelas
+         'kelas' => $kelas,
+         'listKehadiran' => $this->kehadiranModel->getAllKehadiran()
       ];
 
       return view('admin/absen/absen-siswa', $data);
@@ -55,10 +56,11 @@ class DataAbsenSiswa extends BaseController
       $kelas = $this->request->getVar('kelas');
       $idKelas = $this->request->getVar('id_kelas');
       $tanggal = $this->request->getVar('tanggal');
+      $idKehadiran = $this->request->getVar('id_kehadiran');
 
       $lewat = Time::parse($tanggal)->isAfter(Time::today());
 
-      $result = $this->presensiSiswa->getPresensiByKelasTanggal($idKelas, $tanggal);
+      $result = $this->presensiSiswa->getPresensiByKelasTanggal($idKelas, $tanggal, $idKehadiran, $lewat);
 
       $data = [
          'kelas' => $kelas,
