@@ -4,9 +4,34 @@
    <div class="container-fluid">
       <div class="card">
          <div class="card-body">
-            <div class="pt-3 pl-3 pb-2">
-               <h4><b>Tanggal</b></h4>
-               <input class="form-control" type="date" name="tangal" id="tanggal" value="<?= date('Y-m-d'); ?>" onchange="getGuru()" style="max-width: 200px;">
+            <div class="row px-3 pt-3 pb-2">
+               <div class="col-md-3">
+                  <h4><b>Tanggal</b></h4>
+                  <input class="form-control" type="date" name="tangal" id="tanggal" value="<?= date('Y-m-d'); ?>" onchange="getGuru()">
+               </div>
+               <div class="col-md-4">
+                  <h4><b>Filter nama kelas</b></h4>
+                  <select class="form-control" id="filterKelas" onchange="getGuru()">
+                     <option value="all">Semua kelas</option>
+                     <?php foreach (($kelas ?? []) as $value) : ?>
+                        <option value="<?= $value['id_kelas']; ?>">
+                           <?= $value['kelas']; ?> <?= $value['jurusan']; ?>
+                        </option>
+                     <?php endforeach; ?>
+                  </select>
+               </div>
+               <div class="col-md-4">
+                  <h4><b>Filter kehadiran</b></h4>
+                  <select class="form-control" id="filterKehadiran" onchange="getGuru()">
+                     <option value="all">Semua kehadiran</option>
+                     <?php foreach (($listKehadiran ?? []) as $kehadiran) : ?>
+                        <option value="<?= $kehadiran['id_kehadiran']; ?>">
+                           <?= $kehadiran['kehadiran']; ?>
+                        </option>
+                     <?php endforeach; ?>
+                     <option value="5">Belum tersedia</option>
+                  </select>
+               </div>
             </div>
          </div>
       </div>
@@ -53,12 +78,16 @@
 
    function getGuru() {
       var tanggal = $('#tanggal').val();
+      var idKelas = $('#filterKelas').val();
+      var idKehadiran = $('#filterKehadiran').val();
 
       jQuery.ajax({
          url: "<?= base_url('/admin/absen-guru'); ?>",
          type: 'post',
          data: {
-            'tanggal': tanggal
+            'tanggal': tanggal,
+            'id_kelas': idKelas,
+            'id_kehadiran': idKehadiran
          },
          success: function(response, status, xhr) {
             // console.log(status);

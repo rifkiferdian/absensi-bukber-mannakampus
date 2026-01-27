@@ -6,6 +6,7 @@ use App\Models\GuruModel;
 
 use App\Controllers\BaseController;
 use App\Models\KehadiranModel;
+use App\Models\KelasModel;
 use App\Models\PresensiGuruModel;
 use CodeIgniter\I18n\Time;
 
@@ -17,6 +18,8 @@ class DataAbsenGuru extends BaseController
 
    protected KehadiranModel $kehadiranModel;
 
+   protected KelasModel $kelasModel;
+
    public function __construct()
    {
       $this->guruModel = new GuruModel();
@@ -24,6 +27,8 @@ class DataAbsenGuru extends BaseController
       $this->presensiGuru = new PresensiGuruModel();
 
       $this->kehadiranModel = new KehadiranModel();
+
+      $this->kelasModel = new KelasModel();
    }
 
    public function index()
@@ -31,6 +36,8 @@ class DataAbsenGuru extends BaseController
       $data = [
          'title' => 'Data Absen',
          'ctx' => 'absen-guru',
+         'kelas' => $this->kelasModel->getDataKelas(),
+         'listKehadiran' => $this->kehadiranModel->getAllKehadiran()
       ];
 
       return view('admin/absen/absen-guru', $data);
@@ -40,10 +47,12 @@ class DataAbsenGuru extends BaseController
    {
       // ambil variabel POST
       $tanggal = $this->request->getVar('tanggal');
+      $idKelas = $this->request->getVar('id_kelas');
+      $idKehadiran = $this->request->getVar('id_kehadiran');
 
       $lewat = Time::parse($tanggal)->isAfter(Time::today());
 
-      $result = $this->presensiGuru->getPresensiByTanggal($tanggal);
+      $result = $this->presensiGuru->getPresensiByTanggal($tanggal, $idKelas, $idKehadiran, $lewat);
 
       $data = [
          'data' => $result,

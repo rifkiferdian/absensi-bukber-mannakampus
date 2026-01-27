@@ -41,7 +41,7 @@ class DataAbsenSiswa extends BaseController
       $kelas = $this->kelasModel->getDataKelas();
 
       $data = [
-         'title' => 'Data Absen Tamu',
+         'title' => 'Data Absen',
          'ctx' => 'absen-siswa',
          'kelas' => $kelas
       ];

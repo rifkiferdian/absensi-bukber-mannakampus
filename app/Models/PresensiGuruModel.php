@@ -61,21 +61,53 @@ class PresensiGuruModel extends Model implements PresensiInterface
       return $this->where([$this->primaryKey => $idPresensi])->first();
    }
 
-   public function getPresensiByTanggal($tanggal)
+   public function getPresensiByTanggal($tanggal, $idKelas = null, $idKehadiran = null, bool $lewat = false)
    {
-      return $this->setTable('tb_guru')
-         ->select('*')
+      $builder = $this->setTable('tb_guru')
+         ->select([
+            'tb_guru.id_guru',
+            'tb_guru.nuptk',
+            'tb_guru.nama_guru',
+            'tb_guru.id_kelas',
+            'tb_kelas.kelas',
+            'tb_jurusan.jurusan',
+            'tb_presensi_guru.id_presensi',
+            'tb_presensi_guru.tanggal',
+            'tb_presensi_guru.jam_masuk',
+            'tb_presensi_guru.jam_keluar',
+            'tb_presensi_guru.id_kehadiran',
+            'tb_presensi_guru.keterangan'
+         ])
          ->join(
             "(SELECT id_presensi, id_guru AS id_guru_presensi, tanggal, jam_masuk, jam_keluar, id_kehadiran, keterangan FROM tb_presensi_guru) tb_presensi_guru",
-            "{$this->table}.id_guru = tb_presensi_guru.id_guru_presensi AND tb_presensi_guru.tanggal = '$tanggal'",
+            "tb_guru.id_guru = tb_presensi_guru.id_guru_presensi AND tb_presensi_guru.tanggal = '$tanggal'",
             'left'
          )
-         ->join(
-            'tb_kehadiran',
-            'tb_presensi_guru.id_kehadiran = tb_kehadiran.id_kehadiran',
-            'left'
-         )
-         ->orderBy("nama_guru")
+         ->join('tb_kehadiran', 'tb_presensi_guru.id_kehadiran = tb_kehadiran.id_kehadiran', 'left')
+         ->join('tb_kelas', 'tb_kelas.id_kelas = tb_guru.id_kelas', 'left')
+         ->join('tb_jurusan', 'tb_kelas.id_jurusan = tb_jurusan.id', 'left');
+
+      if (!empty($idKelas) && $idKelas !== 'all') {
+         $builder->where('tb_guru.id_kelas', $idKelas);
+      }
+
+      if (!empty($idKehadiran) && $idKehadiran !== 'all') {
+         if ((string) $idKehadiran === '5') {
+            $builder->groupStart()
+               ->where('tb_presensi_guru.id_presensi', null)
+               ->groupEnd();
+         } elseif ((string) $idKehadiran === '4' && !$lewat) {
+            $builder->groupStart()
+               ->where('tb_presensi_guru.id_kehadiran', 4)
+               ->orWhere('tb_presensi_guru.id_presensi', null)
+               ->groupEnd();
+         } else {
+            $builder->where('tb_presensi_guru.id_kehadiran', $idKehadiran);
+         }
+      }
+
+      return $builder
+         ->orderBy('tb_guru.nama_guru')
          ->findAll();
    }
 

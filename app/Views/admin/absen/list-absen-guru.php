@@ -5,6 +5,7 @@
             <th><b>No.</b></th>
             <th><b>NUPTK</b></th>
             <th><b>Nama</b></th>
+            <th><b>Kelas</b></th>
             <th><b>Kehadiran</b></th>
             <th><b>Jam masuk</b></th>
             <th><b>Jam pulang</b></th>
@@ -17,11 +18,13 @@
                <?php
                $idKehadiran = intval($value['id_kehadiran'] ?? ($lewat ? 5 : 4));
                $kehadiran = kehadiran($idKehadiran);
+               $namaKelas = trim(($value['kelas'] ?? '') . ' ' . ($value['jurusan'] ?? ''));
                ?>
                <tr>
                   <td><?= $no; ?></td>
                   <td><?= $value['nuptk']; ?></td>
                   <td><b><?= $value['nama_guru']; ?></b></td>
+                  <td><?= $namaKelas !== '' ? $namaKelas : '-'; ?></td>
                   <td>
                      <p class="p-2 w-100 btn btn-<?= $kehadiran['color']; ?> text-center">
                         <b><?= $kehadiran['text']; ?></b>
