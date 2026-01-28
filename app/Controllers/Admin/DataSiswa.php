@@ -18,7 +18,7 @@ class DataSiswa extends BaseController
 
    protected $siswaValidationRules = [
       'nis' => [
-         'rules' => 'required|max_length[20]|min_length[4]',
+         'rules' => 'required|max_length[20]|min_length[3]',
          'errors' => [
             'required' => 'NIS harus diisi.',
             'is_unique' => 'NIS ini telah terdaftar.',
@@ -145,7 +145,7 @@ class DataSiswa extends BaseController
          'data' => $siswa,
          'kelas' => $kelas,
          'ctx' => 'siswa',
-         'title' => 'Edit Siswa',
+         'title' => 'Edit',
       ];
 
       return view('admin/data/edit/edit-data-siswa', $data);
@@ -170,7 +170,7 @@ class DataSiswa extends BaseController
             'data' => $siswa,
             'kelas' => $kelas,
             'ctx' => 'siswa',
-            'title' => 'Edit Siswa',
+            'title' => 'Edit',
             'validation' => $this->validator,
             'oldInput' => $this->request->getVar()
          ];

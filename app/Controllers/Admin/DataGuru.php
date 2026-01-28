@@ -16,11 +16,11 @@ class DataGuru extends BaseController
 
    protected $guruValidationRules = [
       'nuptk' => [
-         'rules' => 'required|max_length[10]|min_length[6]',
+         'rules' => 'required|max_length[10]|min_length[3]',
          'errors' => [
             'required' => 'NUPTK harus diisi.',
             'is_unique' => 'NUPTK ini telah terdaftar.',
-            'min_length[6]' => 'Panjang NUPTK minimal 6 karakter'
+            'min_length[3]' => 'Panjang NUPTK minimal 3 karakter'
          ]
       ],
       'nama' => [
