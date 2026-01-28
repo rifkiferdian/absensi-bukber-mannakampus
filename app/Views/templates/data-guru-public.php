@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data Non Staff MK</title>
+    <title>Data Panitia</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -71,10 +71,10 @@
               Ramadhan 1447 H
             </span>
             <h1 class="font-display text-3xl leading-tight sm:text-4xl lg:text-5xl">
-              Data Non Staff MK & QR Kehadiran
+              Data Panitia & QR Kehadiran
             </h1>
             <p class="max-w-2xl text-sm text-slate-600 sm:text-base">
-              Cari nama Non Staff MK dan unduh QR Code kehadiran langsung dari tabel. Daftar diperbarui otomatis sesuai data terkini.
+              Cari nama Panitia dan unduh QR Code kehadiran langsung dari tabel. Daftar diperbarui otomatis sesuai data terkini.
             </p>
           </div>
 
@@ -88,7 +88,7 @@
 
         <div class="mt-10 grid gap-4 lg:grid-cols-[1.4fr,1fr]">
           <div class="rounded-3xl border border-ramadhan-100 bg-white/90 px-5 py-5 shadow-lg shadow-ramadhan-200/40 backdrop-blur">
-            <label class="text-sm font-semibold text-ramadhan-700" for="searchGuru">Cari Nama Non Staff MK</label>
+            <label class="text-sm font-semibold text-ramadhan-700" for="searchGuru">Cari Nama Panitia</label>
             <div class="mt-3 flex items-center gap-3 rounded-2xl border border-ramadhan-200 bg-white px-4 py-3 shadow-inner shadow-ramadhan-100/60">
               <span class="text-ramadhan-500">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -109,7 +109,7 @@
               </span>
               <div>
                 <p class="text-sm font-semibold text-ramadhan-800">Panduan Singkat</p>
-                <p class="mt-1 text-xs text-slate-600">Ketik nama Non Staff MK, lalu klik tombol QR pada baris yang sesuai untuk mengunduh QR Code.</p>
+                <p class="mt-1 text-xs text-slate-600">Ketik nama Panitia, lalu klik tombol QR pada baris yang sesuai untuk mengunduh QR Code.</p>
               </div>
             </div>
           </div>

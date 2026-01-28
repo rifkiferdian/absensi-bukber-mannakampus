@@ -41,7 +41,7 @@
                <div class="col">
                   <div class="pt-3 pl-3">
                      <h4><b>Absen </b></h4>
-                     <p>Data Non Staff MK muncul disini</p>
+                     <p>Data Panitia muncul disini</p>
                   </div>
                </div>
                <div class="col-sm-auto">

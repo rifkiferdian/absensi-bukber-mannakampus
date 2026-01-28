@@ -144,7 +144,7 @@
               <div class="col-md-6">
                 <div class="card">
                   <div class="card-body">
-                    <h4 class="text-success"><b>Data Non Staff MK</b></h4>
+                    <h4 class="text-success"><b>Data Panitia</b></h4>
                     <p>Total jumlah Panitia : <b><?= count($guru); ?></b>
                       <br>
                       <a href="<?= base_url('admin/guru'); ?>" class="text-success">Lihat data</a>

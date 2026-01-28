@@ -362,7 +362,7 @@ class QRGenerator extends BaseController
          $fontPath = FCPATH . 'assets/fonts/Roboto-Medium.ttf';
       }
 
-      $templatePath = $this->getSiswaTemplatePath((string) $guru['id_kelas']);
+      $templatePath = $this->getGuruTemplatePath();
 
       if (!file_exists($templatePath) || !file_exists($fontPath)) {
          session()->setFlashdata([
@@ -683,7 +683,7 @@ class QRGenerator extends BaseController
             );
 
             $fileName = url_title($guru['nama_guru'], lowercase: true) . '.jpg';
-            $templatePath = $this->getSiswaTemplatePath((string) $guru['id_kelas']);
+            $templatePath = $this->getGuruTemplatePath();
             if (!file_exists($templatePath)) {
                throw new \RuntimeException('Template QR tidak ditemukan');
             }
@@ -754,6 +754,11 @@ class QRGenerator extends BaseController
       return FCPATH . 'assets/img/template-qr/' . $templateFile;
    }
 
+   private function getGuruTemplatePath(): string
+   {
+      return FCPATH . 'assets/img/template-qr/template-qr-panitia.jpg';
+   }
+
    private function createTemplateImage(string $templatePath, string $fontPath, string $qrPath, string $text, string $outputPath): void
    {
       // bersihkan buffer
@@ -818,13 +823,15 @@ class QRGenerator extends BaseController
 
    private function getTemplateLayout(string $templatePath): array
    {
-      $isTemplate21 = basename($templatePath) === 'template-qr-21.jpeg';
+      $baseName = basename($templatePath);
+      $isTemplate21 = $baseName === 'template-qr-21.jpeg';
+      $isTemplatePanitia = $baseName === 'template-qr-panitia.jpg';
 
       return [
-         'fontSize' => $isTemplate21 ? 45 : 65,
-         'qrSize' => $isTemplate21 ? 600 : 700,
-         'textOffsetY' => $isTemplate21 ? 550 : 700,
-         'qrOffsetY' => $isTemplate21 ? 120 : 140,
+         'fontSize' => ($isTemplate21 || $isTemplatePanitia) ? 50 : 65,
+         'qrSize' => $isTemplate21 ? 600 : ($isTemplatePanitia ? 500 : 700),
+         'textOffsetY' => ($isTemplate21 || $isTemplatePanitia) ? 500 : 700,
+         'qrOffsetY' => ($isTemplate21 || $isTemplatePanitia) ? 120 : 140,
       ];
    }
 }

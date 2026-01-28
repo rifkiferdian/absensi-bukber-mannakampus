@@ -48,7 +48,7 @@ class DataGuru extends BaseController
    public function index()
    {
       $data = [
-         'title' => 'Data Non Staff MK',
+         'title' => 'Data Panitia',
          'ctx' => 'guru',
          'kelas' => $this->kelasModel->getDataKelas(),
       ];

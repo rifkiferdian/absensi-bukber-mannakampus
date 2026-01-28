@@ -48,7 +48,7 @@ switch ($context) {
          <li class="nav-item <?= $context == 'absen-guru' ? 'active' : ''; ?>">
             <a class="nav-link" href="<?= base_url('admin/absen-guru'); ?>">
                <i class="material-icons">checklist</i>
-               <p>Absensi Non Staff MK</p>
+               <p>Absensi Panitia</p>
             </a>
          </li>
          <li class="nav-item <?= $context == 'siswa' ? 'active' : ''; ?>">
@@ -60,7 +60,7 @@ switch ($context) {
          <li class="nav-item <?= $context == 'guru' ? 'active' : ''; ?>">
             <a class="nav-link" href="<?= base_url('admin/guru'); ?>">
                <i class="material-icons">person_4</i>
-               <p>Data Non Staff MK</p>
+               <p>Data Panitia</p>
             </a>
          </li>
          <li class="nav-item <?= $context == 'kelas' ? 'active' : ''; ?>">

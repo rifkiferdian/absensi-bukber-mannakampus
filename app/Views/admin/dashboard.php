@@ -31,7 +31,7 @@
                                 <i class="material-icons">person_4</i>
                             </a>
                         </div>
-                        <p class="card-category">Data Non Staff MK</p>
+                        <p class="card-category">Data Panitia</p>
                         <h3 class="card-title"><?= count($guru); ?></h3>
                     </div>
                     <div class="card-footer">
@@ -113,7 +113,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header card-header-success">
-                        <h4 class="card-title"><b>Data Non Staff MK</b></h4>
+                        <h4 class="card-title"><b>Data Panitia</b></h4>
                         <p class="card-category"><?= $dateNow; ?></p>
                     </div>
                     <div class="card-body">
@@ -163,7 +163,7 @@
                         <div class="ct-chart" id="kehadiranGuru"></div>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">Data Non Staff MK</h4>
+                        <h4 class="card-title">Data Panitia</h4>
                         <p class="card-category">Jumlah kehadiran panitia dalam 7 hari terakhir</p>
                     </div>
                     <div class="card-footer">

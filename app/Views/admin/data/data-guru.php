@@ -15,7 +15,7 @@
                </div>
             <?php endif; ?>
             <a class="btn btn-primary ml-3 pl-3 py-3" href="<?= base_url('admin/guru/create'); ?>">
-               <i class="material-icons mr-2">add</i> Data Non Staff MK
+               <i class="material-icons mr-2">add</i> Data Panitia
             </a>
             <a class="btn btn-primary ml-3 pl-3 py-3" href="<?= base_url('admin/guru/bulk'); ?>">
                <i class="material-icons mr-2">add</i> Import CSV/Excel
@@ -27,7 +27,7 @@
                         <div class="nav-tabs-navigation">
                            <div class="row">
                               <div class="col-md-3 col-lg-3">
-                                 <h4 class="card-title"><b>Data Non Staff MK</b></h4>
+                                 <h4 class="card-title"><b>Data Panitia</b></h4>
                                  <p class="card-category">Angkatan <?= $generalSettings->school_year; ?></p>
                               </div>
                               <div class="col-md-6">
@@ -60,7 +60,7 @@
                                  <div class="col-12 col-sm-auto nav nav-tabs">
                                     <div class="nav-item">
                                        <a class="nav-link" id="tabBtn" onclick="removeHover()" href="<?= base_url('admin/guru/create'); ?>">
-                                          <i class="material-icons">add</i> Data Non Staff MK
+                                          <i class="material-icons">add</i> Data Panitia
                                           <div class="ripple-container"></div>
                                        </a>
                                     </div>
