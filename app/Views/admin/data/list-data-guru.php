@@ -6,8 +6,8 @@
             <th><b>ID</b></th>
             <th><b>Nama</b></th>
             <th><b>Jenis Kelamin</b></th>
-            <th><b>Kelas</b></th>
-            <th><b>Jurusan</b></th>
+            <!-- <th><b>Kelas</b></th> -->
+            <!-- <th><b>Jurusan</b></th> -->
             <th><b>No HP</b></th>
             <th><b>Keterangan</b></th>
             <th width="1%"><b>Aksi</b></th>
@@ -20,8 +20,8 @@
                   <td><?= $value['nuptk']; ?></td>
                   <td><b><?= $value['nama_guru']; ?></b></td>
                   <td><?= $value['jenis_kelamin']; ?></td>
-                  <td><?= $value['kelas']; ?></td>
-                  <td><?= $value['jurusan']; ?></td>
+                  <!-- <td><?= $value['kelas']; ?></td> -->
+                  <!-- <td><?= $value['jurusan']; ?></td> -->
                   <td><?= $value['no_hp']; ?></td>
                   <td><?= $value['alamat']; ?></td>
                   <td>

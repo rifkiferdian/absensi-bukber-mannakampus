@@ -22,6 +22,15 @@
             </a>
             <div class="row">
                <div class="col-12 col-xl-12">
+                  <div class="px-3 pb-3">
+                     <div class="row">
+                        <div class="col-md-4 ml-auto">
+                           <div class="form-group mb-0">
+                              <input type="text" id="searchNamaGuru" class="form-control" placeholder="Cari nama panitia">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
                   <div class="card">
                      <div class="card-header card-header-tabs card-header-success">
                         <div class="nav-tabs-navigation">
@@ -76,6 +85,7 @@
                               </div>
                            </div>
                         </div>
+                        
                      </div>
                      <div id="dataGuru">
                         <p class="text-center mt-3">Daftar guru muncul disini</p>
@@ -90,6 +100,8 @@
 </div>
 <script>
    var kelas = null;
+   var searchNama = '';
+   var searchTimer = null;
 
    getDataGuru(kelas);
 
@@ -102,7 +114,8 @@
          url: "<?= base_url('/admin/guru'); ?>",
          type: 'post',
          data: {
-            'kelas': _kelas
+            'kelas': _kelas,
+            'search': searchNama
          },
          success: function(response, status, xhr) {
             // console.log(status);
@@ -126,5 +139,18 @@
          $('#tabBtn').removeClass('active show');
       }, 250);
    }
+
+   document.addEventListener('DOMContentLoaded', function() {
+      var searchInput = document.getElementById('searchNamaGuru');
+      if (searchInput) {
+         searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(function() {
+               searchNama = searchInput.value.trim();
+               getDataGuru(kelas);
+            }, 300);
+         });
+      }
+   });
 </script>
 <?= $this->endSection() ?>

@@ -59,7 +59,8 @@ class DataGuru extends BaseController
    public function ambilDataGuru()
    {
       $kelas = $this->request->getVar('kelas') ?? null;
-      $result = $this->guruModel->getAllGuru($kelas);
+      $search = $this->request->getVar('search') ?? null;
+      $result = $this->guruModel->getAllGuru($kelas, $search);
 
       $data = [
          'data' => $result,

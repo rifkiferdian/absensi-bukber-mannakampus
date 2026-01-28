@@ -467,19 +467,19 @@ class QRGenerator extends BaseController
 
    public function downloadQrSiswaByNomor()
    {
-      $nomorInduk = trim((string) $this->request->getVar('nomor_induk'));
-      if ($nomorInduk === '') {
+      $noHp = trim((string) $this->request->getVar('no_hp'));
+      if ($noHp === '') {
          session()->setFlashdata([
-            'msg' => 'NIP Pegawai wajib diisi',
+            'msg' => 'Nomor HP Pegawai wajib diisi',
             'error' => true
          ]);
          return redirect()->to('/generate-qr');
       }
 
-      $siswa = (new SiswaModel)->where('nis', $nomorInduk)->first();
+      $siswa = (new SiswaModel)->where('no_hp', $noHp)->first();
       if (!$siswa) {
          session()->setFlashdata([
-            'msg' => 'NIP Pegawai tidak ditemukan',
+            'msg' => 'Nomor HP Pegawai tidak ditemukan',
             'error' => true
          ]);
          return redirect()->to('/generate-qr');

@@ -21,6 +21,15 @@
                <i class="material-icons mr-2">add</i> Import CSV/Excel
             </a>
             <button class="btn btn-danger ml-3 pl-3 py-3 btn-table-delete" onclick="deleteSelectedSiswa('Data yang sudah dihapus tidak bisa kembalikan');"><i class="material-icons mr-2">delete_forever</i>Bulk Delete</button>
+            <div class="px-3 pb-3">
+               <div class="row">
+                  <div class="col-md-4 ml-auto">
+                     <div class="form-group mb-0">
+                        <input type="text" id="searchNamaSiswa" class="form-control" placeholder="Cari nama tamu">
+                     </div>
+                  </div>
+               </div>
+            </div>
             <div class="card">
                <div class="card-header card-header-tabs card-header-primary">
                   <div class="nav-tabs-navigation">
@@ -78,6 +87,7 @@
                         </div>
                      </div>
                   </div>
+                  
                </div>
                <div id="dataSiswa">
                   <p class="text-center mt-3">Daftar siswa muncul disini</p>
@@ -90,6 +100,8 @@
 <script>
    var kelas = null;
    var jurusan = null;
+   var searchNama = '';
+   var searchTimer = null;
 
    getDataSiswa(kelas, jurusan, 1);
 
@@ -104,7 +116,8 @@
          data: {
             'kelas': _kelas,
             'jurusan': _jurusan,
-            'page_siswa': _page
+            'page_siswa': _page,
+            'search': searchNama
          },
          success: function(response, status, xhr) {
             // console.log(status);
@@ -122,6 +135,17 @@
    }
 
    document.addEventListener('DOMContentLoaded', function() {
+      var searchInput = document.getElementById('searchNamaSiswa');
+      if (searchInput) {
+         searchInput.addEventListener('input', function() {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(function() {
+               searchNama = searchInput.value.trim();
+               getDataSiswa(kelas, jurusan, 1);
+            }, 300);
+         });
+      }
+
       $("#checkAll").click(function(e) {
          console.log(e);
          $('input:checkbox').not(this).prop('checked', this.checked);

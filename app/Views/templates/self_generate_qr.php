@@ -82,7 +82,7 @@
             Unduh QR Undangan Kehadiran Buka Bersama
           </h1>
           <p class="max-w-xl text-sm text-slate-600 sm:text-lg">
-            Masukkan nomor induk karyawan untuk mendapatkan QR Code kehadiran. Sekali klik, QR akan langsung terunduh.
+            Masukkan nomor HP karyawan untuk mendapatkan QR Code kehadiran. Sekali klik, QR akan langsung terunduh.
           </p>
           <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
             <div class="rounded-2xl border border-emerald-100 bg-white/80 px-4 py-3 text-sm sm:min-w-[220px]">
@@ -126,10 +126,10 @@
             <?php endif; ?>
 
             <form class="mt-7 space-y-5" action="<?= base_url('qr/siswa/download'); ?>" method="get">
-              <label class="block text-sm font-semibold text-emerald-700" for="nomor_induk">Nomor Induk Pegawai</label>
+              <label class="block text-sm font-semibold text-emerald-700" for="no_hp">Nomor HP Pegawai</label>
               <div class="relative">
-                <input id="nomor_induk" type="number" name="nomor_induk" required autocomplete="off" inputmode="numeric" placeholder="Contoh: 1234567890" class="w-full rounded-2xl border border-emerald-200 bg-white px-4 py-3.5 text-base text-slate-900 placeholder:text-slate-400 shadow-inner shadow-emerald-100/60 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-300/50">
-                <span class="pointer-events-none absolute right-4 top-3.5 text-xs text-slate-400">NIP</span>
+                <input id="no_hp" type="tel" name="no_hp" required autocomplete="off" inputmode="tel" placeholder="Contoh: 081234567890" class="w-full rounded-2xl border border-emerald-200 bg-white px-4 py-3.5 text-base text-slate-900 placeholder:text-slate-400 shadow-inner shadow-emerald-100/60 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-300/50">
+                <span class="pointer-events-none absolute right-4 top-3.5 text-xs text-slate-400">HP</span>
               </div>
               <button type="submit" class="group flex w-full items-center justify-between rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-sky-500 px-5 py-3.5 text-base font-semibold text-white shadow-lg shadow-emerald-300/40 transition hover:translate-y-[-1px] hover:shadow-emerald-300/60">
                 <span>Download QR</span>
@@ -139,7 +139,7 @@
 
             <div class="mt-6 flex items-center gap-3 text-xs text-slate-500">
               <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-sm font-semibold text-emerald-600">QR</span>
-              <p>QR Code akan terunduh otomatis setelah nomor induk tervalidasi.</p>
+              <p>QR Code akan terunduh otomatis setelah nomor HP tervalidasi.</p>
             </div>
           </div>
         </div>

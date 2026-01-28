@@ -26,7 +26,7 @@ class GuruModel extends Model
       return $this->where(['unique_code' => $unique_code])->first();
    }
 
-   public function getAllGuru($kelas = null)
+   public function getAllGuru($kelas = null, $search = null)
    {
       $query = $this->select('tb_guru.*, tb_kelas.kelas, tb_jurusan.jurusan')
          ->join('tb_kelas', 'tb_kelas.id_kelas = tb_guru.id_kelas', 'left')
@@ -34,6 +34,10 @@ class GuruModel extends Model
 
       if (!empty($kelas)) {
          $query = $query->where('tb_kelas.kelas', $kelas);
+      }
+
+      if (!empty($search)) {
+         $query = $query->like('tb_guru.nama_guru', $search);
       }
 
       return $query->orderBy('nama_guru')->findAll();
