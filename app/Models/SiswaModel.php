@@ -68,7 +68,7 @@ class SiswaModel extends Model
       return $query->orderBy('nama_siswa')->findAll();
    }
 
-   public function getAllSiswaWithKelasPaginated($kelas = null, $jurusan = null, $perPage = 50, $group = 'siswa', $search = null)
+   public function getAllSiswaWithKelasPaginated($kelas = null, $jurusan = null, $perPage = 50, $group = 'siswa', $search = null, $page = 1)
    {
       $query = $this->join(
          'tb_kelas',
@@ -94,7 +94,7 @@ class SiswaModel extends Model
          $query = $query->like('tb_siswa.nama_siswa', $search);
       }
 
-      return $query->orderBy('nama_siswa')->paginate($perPage, $group);
+      return $query->orderBy('nama_siswa')->paginate($perPage, $group, $page);
    }
 
    public function getSiswaByKelas($id_kelas)

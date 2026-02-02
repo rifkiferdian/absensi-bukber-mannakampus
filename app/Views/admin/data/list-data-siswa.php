@@ -14,7 +14,15 @@
             <th width="1%"><b>Aksi</b></th>
          </thead>
          <tbody>
-            <?php $i = 1;
+            <?php
+            $i = 1;
+            if (isset($pager)) {
+               $currentPage = $pager->getCurrentPage('siswa');
+               $perPage = $pager->getPerPage('siswa');
+               if ($currentPage > 1 && $perPage > 0) {
+                  $i = (($currentPage - 1) * $perPage) + 1;
+               }
+            }
             foreach ($data as $value) : ?>
                <tr>
                   <td><input type="checkbox" name="checkbox-table" class="checkbox-table" value="<?= $value['id_siswa']; ?>"></td>
@@ -50,7 +58,7 @@
       </table>
       <?php if (isset($pager)) : ?>
          <div class="d-flex justify-content-end mt-3">
-            <?= $pager->links('siswa', 'default_full'); ?>
+            <?= $pager->links('siswa', 'button_pager'); ?>
          </div>
       <?php endif; ?>
    <?php else : ?>
