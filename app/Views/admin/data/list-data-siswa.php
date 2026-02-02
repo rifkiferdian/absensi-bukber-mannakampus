@@ -6,7 +6,7 @@
             <th><b>No</b></th>
             <th><b>NIS</b></th>
             <th><b>Nama Tamu</b></th>
-            <th><b>Jenis Kelamin</b></th>
+            <!-- <th><b>Jenis Kelamin</b></th> -->
             <th><b>Waktu</b></th>
             <th><b>Agenda</b></th>
             <th><b>No HP</b></th>
@@ -21,7 +21,7 @@
                   <td><?= $i; ?></td>
                   <td><?= $value['nis']; ?></td>
                   <td><b><?= $value['nama_siswa']; ?></b></td>
-                  <td><?= $value['jenis_kelamin']; ?></td>
+                  <!-- <td><?= $value['jenis_kelamin']; ?></td> -->
                   <td><?= $value['kelas']; ?></td>
                   <td><?= $value['jurusan']; ?></td>
                   <td><?= $value['no_hp']; ?></td>

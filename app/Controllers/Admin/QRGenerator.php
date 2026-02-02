@@ -248,8 +248,13 @@ class QRGenerator extends BaseController
 
          // Tulis nama siswa di tengah dengan bayangan
          $text = $siswa['nama_siswa'];
+         $text_keterangan = $siswa['keterangan'];
+         if ($text_keterangan !== null && $text_keterangan !== '') {
+            $text_keterangan = str_replace('#', "\n\n", $text_keterangan);
+         }
          $layout = $this->getTemplateLayout($templatePath);
          $fontSize = $layout['fontSize'];
+         $fontSizeKeterangan = max(12, $fontSize - 24);
          $angle = 0;
          $textColor = imagecolorallocate($image, 255, 255, 255);
          $shadowColor = imagecolorallocate($image, 0, 0, 0);
@@ -263,6 +268,27 @@ class QRGenerator extends BaseController
 
          imagettftext($image, $fontSize, $angle, $xText + 2, $yText + 2, $shadowColor, $fontPath, $text);
          imagettftext($image, $fontSize, $angle, $xText, $yText, $textColor, $fontPath, $text);
+
+         // Tulis keterangan di bawah nama (multi-line)
+         if ($text_keterangan !== null && $text_keterangan !== '') {
+            $lines = preg_split("/\r\n|\r|\n/", $text_keterangan);
+            $lineHeight = (int) round($fontSizeKeterangan * 1.2);
+            $yKet = $yText + $lineHeight + 25;
+
+            foreach ($lines as $line) {
+               if ($line === '') {
+                  $yKet += $lineHeight;
+                  continue;
+               }
+               $boxKet = imagettfbbox($fontSizeKeterangan, $angle, $fontPath, $line);
+               $ketWidth = abs($boxKet[4] - $boxKet[0]);
+               $xKet = ($width / 2) - ($ketWidth / 2);
+
+               imagettftext($image, $fontSizeKeterangan, $angle, $xKet + 2, $yKet + 2, $shadowColor, $fontPath, $line);
+               imagettftext($image, $fontSizeKeterangan, $angle, $xKet, $yKet, $textColor, $fontPath, $line);
+               $yKet += $lineHeight;
+            }
+         }
 
          // Tempel QR di tengah template
          $qrSize = $layout['qrSize'];
@@ -291,7 +317,7 @@ class QRGenerator extends BaseController
          imagedestroy($qr);
          $data = ob_get_clean();
 
-         $downloadName = 'qr-tamu-' . url_title($siswa['nama_siswa'], lowercase: true) . '.jpg';
+         $downloadName = 'qr-' . url_title($siswa['nama_siswa'], lowercase: true) . '.jpg';
 
          return $this->response
             ->setHeader('Content-Type', 'image/jpeg')
@@ -828,9 +854,9 @@ class QRGenerator extends BaseController
       $isTemplatePanitia = $baseName === 'template-qr-panitia.jpg';
 
       return [
-         'fontSize' => ($isTemplate21 || $isTemplatePanitia) ? 50 : 65,
+         'fontSize' => ($isTemplate21 || $isTemplatePanitia) ? 45 : 50,
          'qrSize' => $isTemplate21 ? 600 : ($isTemplatePanitia ? 500 : 700),
-         'textOffsetY' => ($isTemplate21 || $isTemplatePanitia) ? 500 : 700,
+         'textOffsetY' => ($isTemplate21 || $isTemplatePanitia) ? 480 : 600,
          'qrOffsetY' => ($isTemplate21 || $isTemplatePanitia) ? 120 : 140,
       ];
    }
