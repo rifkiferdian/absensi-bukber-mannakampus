@@ -156,6 +156,7 @@ class GuruModel extends Model
       try {
          $spreadsheet = IOFactory::load($fullPath);
       } catch (\Throwable $e) {
+         log_message('error', 'Spreadsheet load failed: ' . $e->getMessage());
          return false;
       }
 
