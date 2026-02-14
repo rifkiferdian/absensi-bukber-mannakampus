@@ -86,7 +86,7 @@ class Filters extends BaseFilters
                     'qr/siswa/download',
                     'qr/guru/*/download-template',
                     'qr/guru/download-template',
-                    'data-guru-public',
+                    'data-panitia-public',
                     'admin/qr/guru',
                     'admin/qr/guru/*',
                     'admin/qr/guru/*/download-template',
@@ -136,7 +136,7 @@ class Filters extends BaseFilters
             ]
             ,
             'except' => [
-                'data-guru-public',
+                'data-panitia-public',
                 'admin/qr/guru',
                 'admin/qr/guru/*',
                 'admin/qr/guru/*/download-template',

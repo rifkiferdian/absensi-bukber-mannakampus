@@ -97,7 +97,7 @@
               </span>
               <input id="searchGuru" type="text" autocomplete="off" placeholder="Contoh: Nur Aini" class="w-full border-none bg-transparent text-base text-slate-900 placeholder:text-slate-400 focus:outline-none">
             </div>
-            <p class="mt-3 text-xs text-slate-500">Hasil pencarian: <span id="resultCount"><?= count($guru ?? []); ?></span> guru</p>
+            <p class="mt-3 text-xs text-slate-500">Hasil pencarian: <span id="resultCount"><?= count($guru ?? []); ?></span> Panitia</p>
           </div>
 
           <div class="rounded-3xl border border-ramadhan-100 bg-gradient-to-br from-ramadhan-50 via-white to-ramadhan-100/70 px-5 py-5 shadow-lg shadow-ramadhan-200/40">
@@ -116,20 +116,20 @@
         </div>
 
         <div class="mt-8 overflow-hidden rounded-3xl border border-ramadhan-100 bg-white/95 table-shadow">
-          <div class="overflow-x-auto">
-            <table class="w-full min-w-[760px] text-left text-sm">
-              <thead class="bg-ramadhan-500 text-white">
+          <div>
+            <table class="w-full text-left text-sm">
+              <thead class="hidden bg-ramadhan-500 text-white sm:table-header-group">
                 <tr>
                   <th class="px-5 py-4 text-xs font-semibold uppercase tracking-widest">No</th>
-                  <th class="px-5 py-4 text-xs font-semibold uppercase tracking-widest">NUPTK</th>
+                  <!-- <th class="px-5 py-4 text-xs font-semibold uppercase tracking-widest">NUPTK</th> -->
                   <th class="px-5 py-4 text-xs font-semibold uppercase tracking-widest">Nama</th>
-                  <th class="px-5 py-4 text-xs font-semibold uppercase tracking-widest">No HP</th>
+                  <!-- <th class="px-5 py-4 text-xs font-semibold uppercase tracking-widest">No HP</th>
                   <th class="px-5 py-4 text-xs font-semibold uppercase tracking-widest">Alamat</th>
-                  <th class="px-5 py-4 text-xs font-semibold uppercase tracking-widest">Jadwal</th>
+                  <th class="px-5 py-4 text-xs font-semibold uppercase tracking-widest">Jadwal</th> -->
                   <th class="px-5 py-4 text-xs font-semibold uppercase tracking-widest">QR Code</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-ramadhan-100">
+              <tbody class="divide-y divide-ramadhan-100 sm:divide-y">
                 <?php if (!empty($guru)) : ?>
                   <?php $i = 1; ?>
                   <?php foreach ($guru as $value) : ?>
@@ -141,16 +141,27 @@
                       $kelas = $value['kelas'] ?? $value['nama_kelas'] ?? '-';
                       $idGuru = $value['id_guru'] ?? '';
                     ?>
-                    <tr data-guru-row data-name="<?= strtolower($namaGuru); ?>" class="hover:bg-ramadhan-50/70">
-                      <td class="px-5 py-4 text-slate-600">
-                        <span data-row-number><?= $i; ?></span>
+                    <tr data-guru-row data-name="<?= strtolower($namaGuru); ?>" class="block border-b border-ramadhan-100 px-4 py-3 last:border-b-0 sm:table-row sm:border-b-0 sm:px-0 sm:py-0 sm:hover:bg-ramadhan-50/70">
+                      <td class="block py-2 text-slate-600 sm:table-cell sm:px-5 sm:py-4">
+                        <div class="flex items-center justify-between gap-4 sm:block">
+                          <span class="text-xs font-semibold uppercase tracking-widest text-ramadhan-700 sm:hidden">No</span>
+                          <span data-row-number><?= $i; ?></span>
+                        </div>
                       </td>
-                      <td class="px-5 py-4 font-semibold text-ramadhan-700"><?= $nuptk; ?></td>
-                      <td class="px-5 py-4 font-semibold text-slate-900"><?= $namaGuru; ?></td>
-                      <td class="px-5 py-4 text-slate-600"><?= $noHp; ?></td>
-                      <td class="px-5 py-4 text-slate-600"><?= $alamat; ?></td>
-                      <td class="px-5 py-4 text-slate-600"><?= $kelas; ?></td>
-                      <td class="px-5 py-4">
+                      <!-- <td class="px-5 py-4 font-semibold text-ramadhan-700"><?= $nuptk; ?></td> -->
+                      <td class="block py-2 font-semibold text-slate-900 sm:table-cell sm:px-5 sm:py-4">
+                        <div class="flex items-center justify-between gap-4 sm:block">
+                          <span class="text-xs font-semibold uppercase tracking-widest text-ramadhan-700 sm:hidden">Nama</span>
+                          <span><?= $namaGuru; ?></span>
+                        </div>
+                      </td>
+                      <!-- <td class="px-5 py-4 text-slate-600"><?= $noHp; ?></td> -->
+                      <!-- <td class="px-5 py-4 text-slate-600"><?= $alamat; ?></td> -->
+                      <!-- <td class="px-5 py-4 text-slate-600"><?= $kelas; ?></td> -->
+                      <td class="block py-2 sm:table-cell sm:px-5 sm:py-4">
+                        <div class="flex items-center justify-between gap-4 sm:block">
+                          <span class="text-xs font-semibold uppercase tracking-widest text-ramadhan-700 sm:hidden">QR Code</span>
+                          <div>
                         <?php if (!empty($idGuru)) : ?>
                           <a href="<?= base_url('qr/guru/' . $idGuru . '/download-template'); ?>" class="inline-flex items-center gap-2 rounded-full bg-ramadhan-500 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white shadow-lg shadow-ramadhan-300/40 transition hover:-translate-y-0.5 hover:bg-ramadhan-600">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
@@ -161,13 +172,15 @@
                         <?php else : ?>
                           <span class="text-xs text-slate-400">Tidak tersedia</span>
                         <?php endif; ?>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                     <?php $i++; ?>
                   <?php endforeach; ?>
                 <?php endif; ?>
                 <tr id="emptyState" class="<?= !empty($guru) ? 'hidden' : ''; ?>">
-                  <td colspan="7" class="px-5 py-10 text-center text-sm text-slate-500">Data guru tidak ditemukan.</td>
+                  <td colspan="3" class="px-5 py-10 text-center text-sm text-slate-500">Data tidak ditemukan.</td>
                 </tr>
               </tbody>
             </table>
@@ -191,7 +204,7 @@
         rows.forEach((row) => {
           const name = normalize(row.dataset.name);
           const match = name.includes(query);
-          row.classList.toggle("hidden", !match);
+          row.style.display = match ? "" : "none";
 
           if (match) {
             visible += 1;
