@@ -5,7 +5,7 @@
             <th><b>No.</b></th>
             <th><b>NUPTK</b></th>
             <th><b>Nama</b></th>
-            <th><b>Kelas</b></th>
+            <!-- <th><b>Kelas</b></th> -->
             <th><b>Kehadiran</b></th>
             <th><b>Jam masuk</b></th>
             <th><b>Jam pulang</b></th>
@@ -24,7 +24,7 @@
                   <td><?= $no; ?></td>
                   <td><?= $value['nuptk']; ?></td>
                   <td><b><?= $value['nama_guru']; ?></b></td>
-                  <td><?= $namaKelas !== '' ? $namaKelas : '-'; ?></td>
+                  <!-- <td><?= $namaKelas !== '' ? $namaKelas : '-'; ?></td> -->
                   <td>
                      <p class="p-2 w-100 btn btn-<?= $kehadiran['color']; ?> text-center">
                         <b><?= $kehadiran['text']; ?></b>

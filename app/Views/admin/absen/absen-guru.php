@@ -9,7 +9,7 @@
                   <h4><b>Tanggal</b></h4>
                   <input class="form-control" type="date" name="tangal" id="tanggal" value="<?= date('Y-m-d'); ?>" onchange="getGuru()">
                </div>
-               <div class="col-md-4">
+               <!-- <div class="col-md-4">
                   <h4><b>Filter nama kelas</b></h4>
                   <select class="form-control" id="filterKelas" onchange="getGuru()">
                      <option value="all">Semua kelas</option>
@@ -19,7 +19,7 @@
                         </option>
                      <?php endforeach; ?>
                   </select>
-               </div>
+               </div> -->
                <div class="col-md-4">
                   <h4><b>Filter kehadiran</b></h4>
                   <select class="form-control" id="filterKehadiran" onchange="getGuru()">
@@ -49,6 +49,16 @@
                      <i class="material-icons mr-2">refresh</i> Refresh
                   </a>
                </div>
+               <div class="col-sm-auto">
+                  <form action="<?= base_url('/admin/cetak-report-day-guru'); ?>" method="POST" target="_blank" style="display:inline;" onsubmit="syncPrintFilterGuru()">
+                     <input type="hidden" name="tanggal" id="printTanggal" value="<?= date('Y-m-d'); ?>">
+                     <input type="hidden" name="id_kelas" id="printIdKelas" value="all">
+                     <input type="hidden" name="id_kehadiran" id="printIdKehadiran" value="all">
+                     <button type="submit" class="btn btn-warning pl-3 mr-3 mt-3" formtarget="_blank">
+                        <i class="material-icons mr-2">print</i> Cetak
+                     </button>
+                  </form>
+               </div>
             </div>
 
             <div id="dataGuru">
@@ -75,11 +85,19 @@
 </div>
 <script>
    getGuru();
+   syncPrintFilterGuru();
+
+   function syncPrintFilterGuru() {
+      $('#printTanggal').val($('#tanggal').val());
+      $('#printIdKelas').val($('#filterKelas').val());
+      $('#printIdKehadiran').val($('#filterKehadiran').val());
+   }
 
    function getGuru() {
       var tanggal = $('#tanggal').val();
       var idKelas = $('#filterKelas').val();
       var idKehadiran = $('#filterKehadiran').val();
+      syncPrintFilterGuru();
 
       jQuery.ajax({
          url: "<?= base_url('/admin/absen-guru'); ?>",

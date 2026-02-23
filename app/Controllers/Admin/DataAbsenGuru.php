@@ -109,4 +109,44 @@ class DataAbsenGuru extends BaseController
 
       return $this->response->setJSON($response);
    }
+
+   public function cetakReportDay()
+   {
+      $tanggal = $this->request->getPost('tanggal') ?? Time::today()->toDateString();
+      $idKelas = $this->request->getPost('id_kelas') ?? 'all';
+      $idKehadiran = $this->request->getPost('id_kehadiran') ?? 'all';
+
+      $lewat = Time::parse($tanggal)->isAfter(Time::today());
+      $result = $this->presensiGuru->getPresensiByTanggal($tanggal, $idKelas, $idKehadiran, $lewat);
+
+      $kelasInfo = [];
+      if (!empty($idKelas) && $idKelas !== 'all') {
+         $kelasInfo = (array) $this->kelasModel->getKelas($idKelas);
+      }
+
+      $selectedKehadiran = 'Semua kehadiran';
+      if (!empty($idKehadiran) && $idKehadiran !== 'all') {
+         if ((string) $idKehadiran === '5') {
+            $selectedKehadiran = 'Belum tersedia';
+         } else {
+            foreach ($this->kehadiranModel->getAllKehadiran() as $kehadiran) {
+               if ((string) $kehadiran['id_kehadiran'] === (string) $idKehadiran) {
+                  $selectedKehadiran = $kehadiran['kehadiran'];
+                  break;
+               }
+            }
+         }
+      }
+
+      $data = [
+         'tanggal' => $tanggal,
+         'idKelas' => $idKelas,
+         'idKehadiran' => $idKehadiran,
+         'kelasInfo' => $kelasInfo,
+         'selectedKehadiran' => $selectedKehadiran,
+         'data' => $result
+      ];
+
+      return view('admin/cetak/cetak-report-day-guru', $data);
+   }
 }

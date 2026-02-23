@@ -134,6 +134,7 @@ $routes->group('admin', function (RouteCollection $routes) {
    $routes->post('absen-guru', 'Admin\DataAbsenGuru::ambilDataGuru'); // ambil guru berdasarkan tanggal
    $routes->post('absen-guru/kehadiran', 'Admin\DataAbsenGuru::ambilKehadiran'); // ambil kehadiran guru
    $routes->post('absen-guru/edit', 'Admin\DataAbsenGuru::ubahKehadiran'); // ubah kehadiran guru
+   $routes->post('cetak-report-day-guru', 'Admin\DataAbsenGuru::cetakReportDay'); // cetak laporan harian guru
 
    // admin generate QR
    $routes->get('generate', 'Admin\GenerateQR::index');
